@@ -4,10 +4,7 @@ import Home from "./Home";
 import India from "./pages/india";
 import Place from "./pages/place";
 import Login from "./pages/login";
-import InternationalListings from "./pages/international";
-import EducationalListings from "./pages/educational";
-import DevotionalListings from "./pages/devotional";
-import WeekendListings from "./pages/weekend";
+import CategoryListings from "./pages/CategoryListings";
 import ForgotPassword from "./pages/forgot";
 import VerifyOTP from "./pages/verify";
 import ResetPassword from "./pages/reset";
@@ -29,10 +26,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home firstLoading={firstLoading} setFirstLoading={setFirstLoading}/>} />
         <Route path="/listings/indian" element={<India />} />
-        <Route path="/listings/international" element={<InternationalListings />} />
-        <Route path="/listings/educational" element={<EducationalListings />} />
-        <Route path="/listings/devotional" element={<DevotionalListings />} />
-        <Route path="/listings/weekend" element={<WeekendListings />} />
+        <Route path="/listings/international" element={<CategoryListings endpoint="international" heading="International Tour Packages" />} />
+        <Route path="/listings/educational"   element={<CategoryListings endpoint="educational"   heading="Educational Tour Packages" />} />
+        <Route path="/listings/devotional"    element={<CategoryListings endpoint="devotional"    heading="Devotional Tour Packages" />} />
+        <Route path="/listings/weekend"       element={<CategoryListings endpoint="weekend"       heading="Weekend Tour Packages" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/profile" element={<Profile />} />

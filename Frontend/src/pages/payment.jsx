@@ -156,7 +156,7 @@ const Payment = () => {
 
       // Initialize Razorpay Payment
       const options = {
-        key: "rzp_test_7tTCrxHZeeXmx7", // Replace with your Razorpay key
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: orderData.amount * 100,
         currency: "INR",
         name: "Travel Explorer",
@@ -173,6 +173,7 @@ const Payment = () => {
               body: JSON.stringify({
                 orderId: orderData.orderId,
                 paymentId: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
                 userId,
                 listingTitle: place.title,
                 amount: place.price,

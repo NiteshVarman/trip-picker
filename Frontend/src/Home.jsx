@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { useAuth } from "./context/AuthContext"
 
 import {
   FaMapMarkedAlt,
@@ -107,11 +108,11 @@ const packages = [
 
 export default function Home({ firstLoading, setFirstLoading }) {
   const navigate = useNavigate()
+  const { isLoggedIn, logout } = useAuth()
   const [currentVideo, setCurrentVideo] = useState(0)
   const [fade, setFade] = useState(true)
   const [showSplash, setShowSplash] = useState(true)
   const [animationKey, setAnimationKey] = useState(Date.now())
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"))
   const [isScrolled, setIsScrolled] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [animationComplete, setAnimationComplete] = useState(false)
@@ -226,8 +227,7 @@ export default function Home({ firstLoading, setFirstLoading }) {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem("token")
-    setIsLoggedIn(false)
+    logout()
     navigate("/login")
   }
 

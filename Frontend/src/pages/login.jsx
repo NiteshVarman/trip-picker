@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import "./login.css";
 
 function Login() {
@@ -7,6 +9,8 @@ function Login() {
     const [errors, setErrors] = useState({});
     const [registerMessage, setRegisterMessage] = useState("");
     const [loginMessage, setLoginMessage] = useState("");
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -91,8 +95,8 @@ function Login() {
             const data = await response.json();
             if (response.ok) {
                 setLoginMessage("Login successful! Redirecting...");
-                localStorage.setItem("token", data.token);
-                window.location.href = "/";
+                login(data.token);
+                navigate("/");
             } else {
                 setLoginMessage(data.message || "Invalid email or password");
             }
