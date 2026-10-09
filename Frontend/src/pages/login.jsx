@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import "./login.css";
+import BackButton from "../components/BackButton";
 
 function Login() {
     const [registerData, setRegisterData] = useState({ name: "", email: "", password: "" });
@@ -106,6 +107,8 @@ function Login() {
     };
 
     return (
+        <>
+        <BackButton to="/" />
         <div className='content justify-content-center align-items-center d-flex shadow-lg' id='content'>
             {/* Registration Form */}
             <div className='col-md-6 d-flex justify-content-center'>
@@ -191,8 +194,7 @@ function Login() {
 
             
         </div>
-
-        
+        </>
     );
 }
 

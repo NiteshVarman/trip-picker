@@ -1,26 +1,12 @@
 /* Payment Container Styling - Matching Travel Explorer Theme */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
-
-:root {
-  --primary-color: #ff7e5f;
-  --primary-light: #ff9e7d;
-  --primary-dark: #e05a3b;
-  --secondary-color: #feb47b;
-  --accent-color: #00bcd4;
-  --dark-color: #333;
-  --light-color: #f8f9fa;
-  --text-color: #4a4a4a;
-  --white: #ffffff;
-  --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease-in-out;
-}
+/* Inherits all design tokens from index.css */
 
 .payment-container {
   max-width: 800px;
   margin: 100px auto 50px;
   padding: 40px;
-  background: var(--white);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
   border-radius: 20px;
   transition: var(--transition);
   font-family: "Poppins", sans-serif;
@@ -48,7 +34,7 @@
   font-family: "Playfair Display", serif;
   font-size: 32px;
   font-weight: 700;
-  color: var(--dark-color);
+  color: var(--text-heading);
   margin-bottom: 20px;
   text-align: center;
   position: relative;
@@ -91,17 +77,17 @@
 .form-section-title {
   font-family: "Playfair Display", serif;
   font-size: 18px;
-  color: var(--dark-color);
+  color: var(--text-heading);
   margin-bottom: 15px;
   padding-left: 15px;
-  border-left: 3px solid var(--primary-color);
+  border-left: 3px solid var(--primary);
 }
 
 /* Labels */
 .payment-container label {
   display: block;
   font-size: 15px;
-  color: var(--text-color);
+  color: var(--text-body);
   margin: 15px 0 8px;
   font-weight: 500;
   transition: var(--transition);
@@ -116,22 +102,23 @@
 .payment-container textarea {
   width: 100%;
   padding: 14px 18px;
-  border: 2px solid #eee;
+  border: 2px solid var(--border);
   border-radius: 12px;
   font-size: 15px;
   transition: var(--transition);
   outline: none;
-  background: #f9f9f9;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+  background: var(--surface-muted);
+  box-shadow: none;
   font-family: "Poppins", sans-serif;
+  color: var(--text-heading);
 }
 
 /* Input focus effect */
 .payment-container input:focus,
 .payment-container textarea:focus {
-  border-color: var(--primary-color);
-  background: var(--white);
-  box-shadow: 0 0 10px rgba(255, 126, 95, 0.15);
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.15);
 }
 
 /* Guest Names Inputs */
@@ -155,7 +142,7 @@
 .payment-container input[type="date"],
 .payment-container input[type="time"] {
   cursor: pointer;
-  color: var(--text-color);
+  color: var(--text-body);
 }
 
 /* Textarea */
@@ -170,8 +157,8 @@
   padding: 16px;
   font-size: 18px;
   font-weight: 600;
-  color: var(--white);
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -201,7 +188,7 @@
 
 /* Button Hover */
 .payment-container button:hover {
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  background: linear-gradient(135deg, var(--secondary), var(--primary));
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(255, 126, 95, 0.4);
 }
@@ -220,13 +207,8 @@
 /* Placeholder styling */
 .payment-container input::placeholder,
 .payment-container textarea::placeholder {
-  color: #aaa;
+  color: var(--text-muted);
   font-style: italic;
-}
-
-.payment-container input,
-.payment-container textarea {
-  color: var(--dark-color);
 }
 
 /* Guest names section */
@@ -304,4 +286,51 @@
     font-size: 18px;
     padding: 8px 15px;
   }
+}
+
+/* ── Dark theme overrides ── */
+body.dark-theme .payment-container {
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  color: var(--text-body);
+}
+
+body.dark-theme .payment-container h2 {
+  color: var(--text-heading);
+}
+
+body.dark-theme .payment-container p {
+  color: var(--primary);
+}
+
+body.dark-theme .form-section-title {
+  color: var(--text-heading);
+}
+
+body.dark-theme .payment-container label {
+  color: var(--text-body);
+}
+
+body.dark-theme .payment-container input,
+body.dark-theme .payment-container textarea {
+  background: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--text-body);
+}
+
+body.dark-theme .payment-container input:focus,
+body.dark-theme .payment-container textarea:focus {
+  background: var(--surface);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 158, 125, 0.2);
+}
+
+body.dark-theme .payment-container input::placeholder,
+body.dark-theme .payment-container textarea::placeholder {
+  color: var(--text-muted);
+}
+
+body.dark-theme .guest-names-container {
+  background: rgba(255, 126, 95, 0.05);
+  border-color: rgba(255, 126, 95, 0.2);
 }

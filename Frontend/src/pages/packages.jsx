@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Search, X, Clock, MapPin, Calendar, DollarSign, Star, ChevronDown } from 'lucide-react'
 import MapComponent from "./map"
 import "./packages.css"
+import BackButton from "../components/BackButton"
 
 const PackagesPage = () => {
   const navigate = useNavigate();
@@ -211,6 +212,7 @@ const PackagesPage = () => {
 
   return (
     <div className="packages-container">
+      <BackButton />
       <motion.div
         className="packages-header"
         initial={{ opacity: 0, y: -20 }}

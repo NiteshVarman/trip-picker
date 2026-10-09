@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { MapPin, Clock, RouteIcon, Info } from "lucide-react"
 import "./place.css"
+import BackButton from "../components/BackButton"
 
 const Place = () => {
   const { stateName } = useParams()
@@ -54,6 +55,7 @@ const Place = () => {
 
   return (
     <div className="place-container">
+      <BackButton />
       <h2>Tour Packages for {stateName}</h2>
 
       {places.length > 0 ? (

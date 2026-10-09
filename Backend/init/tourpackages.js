@@ -51,7 +51,7 @@ const tourPackages = [
     "title": "Exclusive Arunachal Adventure",
     "place": "Arunachal Pradesh",
     "image": {
-      "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/01/85/2c/41/jung-falls.jpg?w=1400&h=1400&s=1"
+      "url": "https://images.pexels.com/photos/1234945/pexels-photo-1234945.jpeg"
     },
     "price": 13999,
     "route": "AR-Itanagar > AR-Tawang > AR-Bomdila",
@@ -243,7 +243,7 @@ const tourPackages = [
     "title": "Goa Beach Escape",
     "place": "Goa",
     "image": {
-      "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/fc/f0/goa.jpg?w=1200&h=700&s=1"
+      "url": "https://images.pexels.com/photos/1483053/pexels-photo-1483053.jpeg"
     },
     "price": 12999,
     "route": "GA-Panjim > GA-Calangute > GA-Margao",
@@ -435,7 +435,7 @@ const tourPackages = [
     "title": "Jharkhand Explorer Tour",
     "place": "Jharkhand",
     "image": {
-      "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/c3/cc/4c/dassam-falls.jpg?w=1200&h=-1&s=1"
+      "url": "https://images.pexels.com/photos/3464632/pexels-photo-3464632.jpeg"
     },
     "price": 12999,
     "route": "JH-Ranchi > JH-Jamshedpur > JH-Deoghar",
@@ -1131,7 +1131,7 @@ const tourPackages = [
     "title": "Tripura Explorer Package",
     "place": "Tripura",
     "image": {
-      "url": "https://etimg.etb2bimg.com/thumb/msid-99783071,imgsize-1628992,width-1200,height=765,overlay-ettravel/destination/states/tripura-to-invest-inr-1000-crore-to-boost-tourism-infrastructure.jpg"
+      "url": "https://images.pexels.com/photos/3581916/pexels-photo-3581916.jpeg"
     },
     "price": 14999,
     "route": "TR-Dharmanagar > TR-Agartala > TR-Udaipur",
@@ -1771,7 +1771,7 @@ const tourPackages = [
       "title": "Chennai Cultural & Literary Expedition",
       "place": "Chennai",
       "image": {
-        "url": "https://media-cdn.tripadvisor.com/media/photo-s/0e/f0/3b/16/the-welcome-effect.jpg"
+        "url": "https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg"
       },
       "price": 11999,
       "route": "Chennai > Mahabalipuram > Pondicherry",
@@ -1783,7 +1783,7 @@ const tourPackages = [
       "title": "Hyderabad Science & Cultural Tour",
       "place": "Hyderabad",
       "image": {
-        "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/48/ec/54/hasrat-mohani-district.jpg?w=500&h=500&s=1"
+        "url": "https://images.pexels.com/photos/2614818/pexels-photo-2614818.jpeg"
       },
       "price": 12999,
       "route": "Hyderabad > Warangal > Nizamabad",
@@ -1795,7 +1795,7 @@ const tourPackages = [
       "title": "Kolkata Heritage & Literature Tour",
       "place": "Kolkata",
       "image": {
-        "url": "https://media-cdn.tripadvisor.com/media/photo-s/0d/c1/3a/52/science-city.jpg"
+        "url": "https://images.pexels.com/photos/2846217/pexels-photo-2846217.jpeg"
       },
       "price": 11999,
       "route": "Kolkata > Shantiniketan > Howrah",
@@ -1891,7 +1891,7 @@ const tourPackages = [
       "title": "Shimla Environmental & Ecotourism Study",
       "place": "Shimla",
       "image": {
-        "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/0f/81/51/advance-study-shimla.jpg?w=500&h=500&s=1"
+        "url": "https://images.pexels.com/photos/4916559/pexels-photo-4916559.jpeg"
       },
       "price": 13999,
       "route": "Shimla > Kufri > Manali",
@@ -2173,7 +2173,7 @@ const tourPackages = [
     "title": "Jaipur Pink City Weekend Tour",
     "place": "Jaipur",
     "image": {
-      "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/d3/a8/57/images-30-largejpg.jpg?w=500&h=-1&s=1"
+      "url": "https://images.pexels.com/photos/3581368/pexels-photo-3581368.jpeg"
     },
     "price": 9499,
     "route": "Delhi > Jaipur > Amber Fort",
@@ -2309,7 +2309,7 @@ const tourPackages = [
     "title": "Dubai Desert & City Adventure",
     "place": "Dubai",
     "image": {
-      "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/e2/fd/e2/photo0jpg.jpg?w=1200&h=700&s=1"
+      "url": "https://images.pexels.com/photos/3889742/pexels-photo-3889742.jpeg"
     },
     "price": 79999,
     "route": "Dubai > Abu Dhabi > Sharjah",
@@ -2453,7 +2453,7 @@ const tourPackages = [
     "title": "Canada Rockies & Niagara Falls Tour",
     "place": "Canada",
     "image": {
-      "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/a3/8b/5f/niagara-falls.jpg?w=1200&h=1200&s=1"
+      "url": "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg"
     },
     "price": 149999,
     "route": "Toronto > Vancouver > Banff National Park",

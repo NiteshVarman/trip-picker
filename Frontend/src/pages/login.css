@@ -1,6 +1,6 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fcf4fb;
+    background: var(--bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,7 +9,7 @@ body {
 }
 
 .content {
-    background-color: #fff;
+    background-color: var(--surface);
     border-radius: 40px;
     position: relative;
     overflow: hidden;
@@ -111,4 +111,33 @@ body {
 
 .content.active .switch-right {
     transform: translateX(100%);
+}
+
+/* ── Dark theme overrides ── */
+body.dark-theme {
+  background: var(--bg);
+}
+
+body.dark-theme .content {
+  background-color: var(--surface);
+  color: var(--text-body);
+}
+
+body.dark-theme .header-text h1,
+body.dark-theme .forgot a {
+  color: #c084bc;
+}
+
+body.dark-theme .content input {
+  background-color: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--text-body);
+}
+
+body.dark-theme .content input::placeholder {
+  color: var(--text-muted);
+}
+
+body.dark-theme .content .form-check-label {
+  color: var(--text-muted);
 }

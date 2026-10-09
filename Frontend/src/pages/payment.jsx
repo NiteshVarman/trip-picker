@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import "./payment.css";
+import BackButton from "../components/BackButton";
 
 const Payment = () => {
   const { title } = useParams(); // Get title from URL
@@ -266,6 +267,7 @@ const Payment = () => {
 
   return (
     <div className="payment-container">
+      <BackButton />
       <div className="decoration decoration-1"></div>
       <div className="decoration decoration-2"></div>
 

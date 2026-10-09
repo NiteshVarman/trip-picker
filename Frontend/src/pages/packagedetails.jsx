@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MapPin, Clock, Route, DollarSign, Info } from 'lucide-react';
 import "./packagedetails.css";
+import BackButton from "../components/BackButton";
 
 const PackageDetails = () => {
     const navigate = useNavigate();
@@ -65,6 +66,7 @@ const PackageDetails = () => {
 
     return (
         <div className="package-details-container">
+            <BackButton />
             <h2>{packageDetails.title}</h2>
 
             <img 

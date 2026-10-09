@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Camera, Upload } from "lucide-react"
 import "./profile.css"
+import BackButton from "../components/BackButton"
 
 const Profile = () => {
   const [name, setUsername] = useState("")
@@ -123,6 +124,7 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
+      <BackButton />
       <div className="profile-header">
         <div className="profile-image-container">
           <div className="profile-image-wrapper">

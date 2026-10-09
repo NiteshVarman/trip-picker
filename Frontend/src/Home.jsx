@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { useAuth } from "./context/AuthContext"
+import { useTheme } from "./context/ThemeContext"
 
 import {
   FaMapMarkedAlt,
@@ -109,6 +110,7 @@ const packages = [
 export default function Home({ firstLoading, setFirstLoading }) {
   const navigate = useNavigate()
   const { isLoggedIn, logout } = useAuth()
+  const { isDark, toggleTheme } = useTheme()
   const [currentVideo, setCurrentVideo] = useState(0)
   const [fade, setFade] = useState(true)
   const [showSplash, setShowSplash] = useState(true)
@@ -116,7 +118,6 @@ export default function Home({ firstLoading, setFirstLoading }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [animationComplete, setAnimationComplete] = useState(false)
-  const [isDarkTheme, setIsDarkTheme] = useState(false)
 
   // Refs for animation elements
   const highlightsRef = useRef(null)
@@ -195,18 +196,9 @@ export default function Home({ firstLoading, setFirstLoading }) {
     }
   }, [scrollY])
 
-  // Theme effect
-  useEffect(() => {
-    if (isDarkTheme) {
-      document.body.classList.add("dark-theme")
-    } else {
-      document.body.classList.remove("dark-theme")
-    }
-  }, [isDarkTheme])
+  // Theme is managed globally by ThemeContext — no manual body class needed here.
 
-  const toggleTheme = () => {
-    setIsDarkTheme((prev) => !prev)
-  }
+
 
   const handleNext = () => {
     setFade(false)
@@ -232,7 +224,7 @@ export default function Home({ firstLoading, setFirstLoading }) {
   }
 
   return (
-    <div className={`home-wrapper ${isDarkTheme ? "dark-theme" : ""}`}>
+    <div className="home-wrapper">
       {showSplash && firstLoading ? (
         <div className="splash-screen">
           <div className="splash-bg-elements">
@@ -280,8 +272,8 @@ export default function Home({ firstLoading, setFirstLoading }) {
               <li onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })}>About</li>
 
               <li onClick={() => navigate("/bookings")}>My Bookings</li>
-              <li className="theme-toggle" onClick={toggleTheme} style={{ color: isDarkTheme ? "#fff" : "#333" }}>
-                {isDarkTheme ? <FaSun /> : <FaMoon />}
+              <li className="theme-toggle" onClick={toggleTheme} style={{ color: isDark ? "#fff" : "#333" }}>
+                {isDark ? <FaSun /> : <FaMoon />}
               </li>
               {!isLoggedIn ? (
                 <li className="auth-button" onClick={() => navigate("/login")}>
@@ -390,9 +382,9 @@ export default function Home({ firstLoading, setFirstLoading }) {
                   transform: `translateY(${animationComplete ? "0" : "50px"})`,
                   transition: "opacity 0.8s ease, transform 0.8s ease",
                   marginTop: animationComplete ? "0" : "50px",
-                  background: isDarkTheme ? "rgba(30, 30, 40, 0.6)" : "rgba(255, 255, 255, 0.8)",
+                  background: isDark ? "rgba(30, 30, 40, 0.6)" : "rgba(255, 255, 255, 0.8)",
                   borderRadius: "20px",
-                  boxShadow: isDarkTheme ? "0 10px 30px rgba(0, 0, 0, 0.3)" : "0 10px 30px rgba(0, 0, 0, 0.1)",
+                  boxShadow: isDark ? "0 10px 30px rgba(0, 0, 0, 0.3)" : "0 10px 30px rgba(0, 0, 0, 0.1)",
                   backdropFilter: "blur(10px)",
                 }}
               >
@@ -406,7 +398,7 @@ export default function Home({ firstLoading, setFirstLoading }) {
                     <div className="package-content">
                       <span
                         className="package-number"
-                        style={{ color: isDarkTheme ? "rgb(71, 70, 70)" : "rgba(2, 2, 2, 0.05)" }}
+                        style={{ color: isDark ? "rgb(71, 70, 70)" : "rgba(2, 2, 2, 0.05)" }}
                       >
                         0{index + 1}
                       </span>

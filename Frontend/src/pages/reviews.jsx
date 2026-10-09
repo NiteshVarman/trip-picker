@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Star, ThumbsUp, MessageSquare, Camera, Send, Edit, Trash2, X, Upload, User } from 'lucide-react';
+import { Star, ThumbsUp, MessageSquare, Camera, Send, Edit, Trash2, X, Upload, User } from 'lucide-react';
 import axios from "axios";
 import "./reviews.css";
+import BackButton from "../components/BackButton";
 
 const Reviews = () => {
     const { listingTitle } = useParams();
@@ -223,12 +224,8 @@ const Reviews = () => {
 
     return (
         <div className="reviews-container">
+            <BackButton />
             <h2>Reviews for {decodeURIComponent(listingTitle)}</h2>
-
-            <button className="back-button" onClick={() => navigate(-1)}>
-                <ArrowLeft size={18} />
-                Back to Package
-            </button>
 
             {/* Review Form */}
             <form onSubmit={handleSubmit} className="review-form" encType="multipart/form-data">

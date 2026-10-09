@@ -1,0 +1,55 @@
+/* ── BackButton — fixed top-left, theme-aware ── */
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 900;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 14px 8px 10px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+
+  background: var(--surface);
+  color: var(--text-heading);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+
+  transition: background 0.2s ease, color 0.2s ease,
+    transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(255, 126, 95, 0.35);
+  transform: translateX(-3px);
+}
+
+.back-btn:active {
+  transform: translateX(-5px) scale(0.97);
+}
+
+.back-btn__label {
+  letter-spacing: 0.01em;
+}
+
+/* On very small screens keep it accessible */
+@media (max-width: 360px) {
+  .back-btn__label {
+    display: none;
+  }
+  .back-btn {
+    padding: 8px 10px;
+  }
+}

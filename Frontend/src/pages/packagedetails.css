@@ -3,10 +3,10 @@
     max-width: 1000px;
     margin: 40px auto 80px;
     padding: 30px;
-    background: white;
+    background: var(--surface);
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    color: var(--text-color, #4a4a4a);
+    box-shadow: var(--shadow-md);
+    color: var(--text-body);
     position: relative;
     overflow: hidden;
   }
@@ -100,13 +100,13 @@
     align-items: center;
     gap: 12px;
     padding: 15px;
-    background: #f9f9f9;
+    background: var(--surface-muted);
     border-radius: 12px;
     transition: all 0.3s ease;
   }
   
   .info-item:hover {
-    background: #f0f0f0;
+    background: var(--surface-alt);
     transform: translateY(-3px);
   }
   
@@ -126,7 +126,7 @@
   
   .info-label {
     font-size: 0.9rem;
-    color: #888;
+    color: var(--text-muted);
     margin-bottom: 3px;
   }
   
@@ -139,9 +139,9 @@
   .package-description {
     margin: 30px 0;
     padding: 25px;
-    background: #f9f9f9;
+    background: var(--surface-muted);
     border-radius: 16px;
-    border-left: 4px solid var(--primary-color, #ff7e5f);
+    border-left: 4px solid var(--primary-color);
   }
   
   .price-container {
@@ -167,7 +167,7 @@
   
   .price-per-person {
     font-size: 1rem;
-    color: #888;
+    color: var(--text-muted);
     margin-left: 10px;
   }
   
@@ -213,3 +213,54 @@
       font-size: 2rem;
     }
   }
+
+/* ── Dark theme overrides ── */
+body.dark-theme .package-details-container {
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  color: var(--text-body);
+}
+
+body.dark-theme .package-details-container h2 {
+  color: var(--text-heading);
+}
+
+body.dark-theme .package-details-container p {
+  color: var(--text-body);
+}
+
+body.dark-theme .package-details-container strong {
+  color: var(--text-heading);
+}
+
+body.dark-theme .info-item {
+  background: var(--surface-muted);
+}
+
+body.dark-theme .info-item:hover {
+  background: var(--surface-alt);
+}
+
+body.dark-theme .info-label {
+  color: var(--text-muted);
+}
+
+body.dark-theme .info-value {
+  color: var(--text-heading);
+}
+
+body.dark-theme .package-description {
+  background: var(--surface-muted);
+}
+
+body.dark-theme .price-container {
+  background: rgba(255, 126, 95, 0.08);
+}
+
+body.dark-theme .price-label {
+  color: var(--text-heading);
+}
+
+body.dark-theme .price-per-person {
+  color: var(--text-muted);
+}

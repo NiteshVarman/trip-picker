@@ -49,10 +49,21 @@
   }
 
   h1 {
-    color: rgb(0, 0, 0);
-    font-family: "Times New Roman", Times, serif, sans-serif;
+    color: var(--text-heading, #000);
+    font-family: "Playfair Display", serif;
     font-size: 40px;
     text-align: center;
     margin-top: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
+
+/* ── Dark theme overrides ── */
+body.dark-theme #map .state {
+  fill: var(--surface-alt);
+  stroke: rgba(255,255,255,0.2);
+}
+
+body.dark-theme #map .tn {
+  fill: var(--surface);
+  stroke: rgba(255,255,255,0.2);
+}

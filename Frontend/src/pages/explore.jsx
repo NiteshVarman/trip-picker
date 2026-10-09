@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Search, RefreshCw, MapPin, Calendar, DollarSign, Users, Clock, Star } from "lucide-react"
 import "./explore.css"
+import BackButton from "../components/BackButton"
 
 const HomePage = () => {
   const [type, setType] = useState("")
@@ -67,6 +68,7 @@ const HomePage = () => {
 
   return (
     <div className="container">
+      <BackButton />
       <h1>Tourism Recommendation System</h1>
 
       <div className="form-container">

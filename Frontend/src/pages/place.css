@@ -3,7 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px 80px;
-  color: var(--text-color, #4a4a4a);
+  color: var(--text-body);
   min-height: 100vh;
 }
 
@@ -11,7 +11,7 @@
   font-family: "Playfair Display", serif;
   font-size: 2.8rem;
   margin-bottom: 30px;
-  color: var(--dark-color, #333);
+  color: var(--text-heading);
   position: relative;
   display: inline-block;
   text-align: center;
@@ -39,10 +39,10 @@
 
 /* Place Card */
 .place-card {
-  background: white;
+  background: var(--surface);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+  box-shadow: var(--shadow-sm);
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   z-index: 1;
@@ -109,14 +109,14 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #fff9f8; /* Light pink background like in the reference */
+  background-color: var(--surface-alt);
 }
 
 .place-card h3 {
   font-family: "Playfair Display", serif;
   font-size: 1.5rem;
   margin-bottom: 20px;
-  color: var(--dark-color, #333);
+  color: var(--text-heading);
   transition: color 0.3s ease;
 }
 
@@ -168,12 +168,12 @@
 
 .info-label {
   font-weight: 600;
-  color: var(--dark-color, #333);
+  color: var(--text-heading);
   font-size: 0.95rem;
 }
 
 .info-value {
-  color: var(--text-color, #666);
+  color: var(--text-body);
   font-size: 0.95rem;
 }
 
@@ -238,8 +238,8 @@
 
 .secondary-buttons button {
   background: transparent;
-  color: var(--dark-color, #333);
-  border: 1px solid #ddd;
+  color: var(--text-heading);
+  border: 1px solid var(--border);
   padding: 12px;
   border-radius: 10px;
   font-weight: 500;
@@ -249,17 +249,17 @@
 }
 
 .secondary-buttons button:hover {
-  background: #f8f8f8;
-  border-color: #ccc;
+  background: var(--surface-muted);
+  border-color: var(--text-muted);
 }
 
 /* Empty State */
 .empty-state {
   text-align: center;
   padding: 60px 20px;
-  background: white;
+  background: var(--surface);
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 .empty-state img {
@@ -271,11 +271,11 @@
 .empty-state h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: var(--dark-color, #333);
+  color: var(--text-heading);
 }
 
 .empty-state p {
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 20px;
 }
 
@@ -378,4 +378,60 @@
   .secondary-buttons {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── Dark theme overrides ── */
+body.dark-theme .place-container {
+  background-color: var(--bg);
+  color: var(--text-body);
+}
+
+body.dark-theme .place-container h2 {
+  color: var(--text-heading);
+}
+
+body.dark-theme .place-card {
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+body.dark-theme .place-card-content {
+  background-color: var(--surface-alt);
+}
+
+body.dark-theme .place-card h3 {
+  color: var(--text-heading);
+}
+
+body.dark-theme .info-label {
+  color: var(--text-heading);
+}
+
+body.dark-theme .info-value {
+  color: var(--text-body);
+}
+
+body.dark-theme .secondary-buttons button {
+  background: var(--surface-muted);
+  color: var(--text-body);
+  border-color: var(--border);
+}
+
+body.dark-theme .secondary-buttons button:hover {
+  background: var(--surface-alt);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+body.dark-theme .empty-state {
+  background: var(--surface);
+  color: var(--text-body);
+}
+
+body.dark-theme .empty-state h3 {
+  color: var(--text-heading);
+}
+
+body.dark-theme .empty-state p {
+  color: var(--text-muted);
 }

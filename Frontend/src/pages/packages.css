@@ -1,21 +1,12 @@
 /* Enhanced Packages Page Styling with Orange Theme and Advanced Effects */
-:root {
-  --primary-color: #ff7e5f;
-  --primary-dark: #e05a3b;
-  --primary-light: #feb47b;
-  --dark-color: #2d3748;
-  --text-color: #4a5568;
-  --light-color: #f8f9fa;
-  --border-color: #e9ecef;
-  --success-color: #48bb78;
-  --warning-color: #f6ad55;
-  --danger-color: #f56565;
-  --gradient-primary: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
-  --gradient-secondary: linear-gradient(135deg, #6c63ff 0%, #a393eb 100%);
-  --shadow-soft: 0 5px 15px rgba(255, 126, 95, 0.1);
-  --shadow-strong: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+/* Page-local aliases that don't conflict with global :root tokens */
+.packages-container {
+  --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  --shadow-soft: var(--shadow-sm);
+  --shadow-strong: var(--shadow-lg);
   --font-primary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-secondary: "Playfair Display", serif;
+  --border-color: var(--border);
 }
 
 /* Base Styles */
@@ -23,9 +14,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px 80px;
-  color: var(--text-color);
+  color: var(--text-body);
   min-height: 100vh;
-  background-color: var(--light-color);
+  background-color: var(--bg);
   font-family: var(--font-primary);
 }
 
@@ -85,7 +76,7 @@
 .section-title {
   font-family: var(--font-secondary);
   font-size: 2rem;
-  color: var(--dark-color);
+  color: var(--text-heading);
   text-align: center;
   margin: 40px 0 20px;
   position: relative;
@@ -114,7 +105,7 @@
 .search-bar {
   display: flex;
   align-items: center;
-  background: white;
+  background: var(--surface);
   border-radius: 50px;
   padding: 5px 20px;
   box-shadow: var(--shadow-soft);
@@ -140,7 +131,7 @@
   font-size: 1rem;
   border: none;
   background: transparent;
-  color: var(--dark-color);
+  color: var(--text-heading);
   font-family: var(--font-primary);
 }
 
@@ -149,13 +140,13 @@
 }
 
 .search-bar input::placeholder {
-  color: #aaa;
+  color: var(--text-muted);
 }
 
 .clear-search {
   background: none;
   border: none;
-  color: #aaa;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 5px;
   display: flex;
@@ -174,25 +165,25 @@
   top: calc(100% + 5px);
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--surface);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 12px;
   box-shadow: var(--shadow-soft);
   z-index: 100;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border);
 }
 
 .history-header {
   display: flex;
   align-items: center;
   padding: 12px 20px;
-  background: rgba(248, 249, 250, 0.8);
-  color: var(--text-color);
+  background: var(--surface-muted);
+  color: var(--text-body);
   font-size: 0.9rem;
   font-weight: 500;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border);
 }
 
 .history-header svg {
@@ -206,7 +197,7 @@
   padding: 12px 20px;
   cursor: pointer;
   transition: all 0.2s;
-  color: var(--dark-color);
+  color: var(--text-heading);
 }
 
 .history-item:hover {
@@ -221,11 +212,11 @@
 
 .clear-history {
   width: 100%;
-  background: rgba(248, 249, 250, 0.8);
-  color: var(--danger-color);
+  background: var(--surface-muted);
+  color: #f56565;
   padding: 12px;
   border: none;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--border);
   cursor: pointer;
   font-weight: 500;
   transition: background 0.2s;
@@ -254,14 +245,14 @@
 }
 
 .filter-btn {
-  background: white;
-  border: 1px solid var(--border-color);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 50px;
   padding: 8px 16px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: var(--text-color);
+  color: var(--text-body);
   font-weight: 500;
   position: relative;
   overflow: hidden;
@@ -281,7 +272,7 @@
 }
 
 .filter-btn:hover {
-  color: var(--dark-color);
+  color: var(--text-heading);
   transform: translateY(-2px);
   box-shadow: var(--shadow-soft);
   border-color: var(--primary-light);
@@ -307,19 +298,19 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: white;
-  border: 1px solid var(--border-color);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 50px;
   padding: 8px 16px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: var(--dark-color);
+  color: var(--text-heading);
   font-weight: 500;
 }
 
 .sort-button:hover {
-  background: var(--light-color);
+  background: var(--surface-muted);
   box-shadow: var(--shadow-soft);
   transform: translateY(-2px);
 }
@@ -337,20 +328,20 @@
   position: absolute;
   top: calc(100% + 5px);
   right: 0;
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   box-shadow: var(--shadow-soft);
   z-index: 100;
   min-width: 200px;
   overflow: hidden;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
 }
 
 .sort-option {
   padding: 12px 20px;
   cursor: pointer;
   transition: all 0.2s;
-  color: var(--text-color);
+  color: var(--text-body);
   position: relative;
 }
 
@@ -384,8 +375,8 @@
 .results-info {
   margin-bottom: 20px;
   font-size: 0.95rem;
-  color: var(--text-color);
-  background: white;
+  color: var(--text-body);
+  background: var(--surface);
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: var(--shadow-soft);
@@ -411,7 +402,7 @@
 
 /* Package Card with Advanced Hover Effects */
 .package-card {
-  background: white;
+  background: var(--surface);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
@@ -419,7 +410,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   position: relative;
 }
 
@@ -480,8 +471,8 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--dark-color);
+  background: rgba(255, 255, 255, 0.92);
+  color: #2d3748;
   padding: 5px 10px;
   border-radius: 50px;
   font-size: 0.8rem;
@@ -503,7 +494,7 @@
 .package-card h3 {
   font-size: 1.3rem;
   margin-bottom: 15px;
-  color: var(--dark-color);
+  color: var(--text-heading);
   font-family: var(--font-secondary);
   position: relative;
   display: inline-block;
@@ -536,7 +527,7 @@
   align-items: center;
   gap: 5px;
   font-size: 0.9rem;
-  color: var(--text-color);
+  color: var(--text-body);
   transition: transform 0.3s ease;
 }
 
@@ -550,7 +541,7 @@
 
 .card-description {
   font-size: 0.9rem;
-  color: var(--text-color);
+  color: var(--text-body);
   margin-bottom: 20px;
   line-height: 1.5;
   flex: 1;
@@ -603,7 +594,7 @@
 .no-results {
   text-align: center;
   padding: 50px 20px;
-  background: white;
+  background: var(--surface);
   border-radius: 16px;
   box-shadow: var(--shadow-soft);
 }
@@ -628,12 +619,12 @@
 .no-results h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: var(--dark-color);
+  color: var(--text-heading);
   font-family: var(--font-secondary);
 }
 
 .no-results p {
-  color: var(--text-color);
+  color: var(--text-body);
   margin-bottom: 20px;
   max-width: 500px;
   margin-left: auto;
@@ -684,8 +675,8 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  background: white;
-  border: 1px solid var(--border-color);
+  background: var(--surface);
+  border: 1px solid var(--border);
 }
 
 .location-header {
@@ -693,14 +684,14 @@
   flex-direction: column;
   gap: 10px;
   padding: 15px 20px;
-  border-bottom: 1px solid var(--border-color);
-  background: var(--light-color);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-muted);
 }
 
 .location-name {
   font-size: 1.1rem;
   font-weight: 500;
-  color: var(--dark-color);
+  color: var(--text-heading);
   text-align: left;
   display: flex;
   align-items: center;
@@ -721,12 +712,12 @@
 .map-container .search-bar {
   display: flex;
   align-items: center;
-  background: white;
+  background: var(--surface);
   border-radius: 50px;
   padding: 5px 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
 }
 
 .map-container .search-bar:focus-within {
@@ -746,7 +737,7 @@
   font-size: 0.9rem;
   border: none;
   background: transparent;
-  color: var(--dark-color);
+  color: var(--text-heading);
 }
 
 .map-container .search-bar input:focus {
@@ -754,7 +745,7 @@
 }
 
 .map-container .search-bar input::placeholder {
-  color: #aaa;
+  color: var(--text-muted);
 }
 
 .map-container .search-button {
@@ -778,14 +769,14 @@
   top: calc(100% + 5px);
   left: 0;
   right: 0;
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   box-shadow: var(--shadow-strong);
-  z-index: 9999; /* Increased z-index to ensure visibility */
+  z-index: 9999;
   overflow: hidden;
   max-height: 200px;
   overflow-y: auto;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
 }
 
 .suggestion-item {
@@ -794,7 +785,7 @@
   padding: 10px 15px;
   cursor: pointer;
   transition: all 0.2s;
-  color: var(--dark-color);
+  color: var(--text-heading);
 }
 
 .suggestion-item:hover {
@@ -837,7 +828,7 @@
 .map-loading {
   text-align: center;
   padding: 50px 20px;
-  color: var(--text-color);
+  color: var(--text-body);
 }
 
 .spinner {
@@ -887,13 +878,13 @@
 /* Attractions List with Card-based Design */
 .attractions-list {
   padding: 20px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--border);
 }
 
 .attractions-list h3 {
   font-size: 1.2rem;
   margin-bottom: 15px;
-  color: var(--dark-color);
+  color: var(--text-heading);
   font-family: var(--font-secondary);
   display: flex;
   align-items: center;
@@ -902,7 +893,7 @@
 
 .attractions-subtitle {
   font-size: 0.8rem;
-  color: var(--text-color);
+  color: var(--text-body);
   font-weight: normal;
   opacity: 0.8;
 }
@@ -917,8 +908,8 @@
 
 .attractions-list li {
   padding: 15px;
-  border: 1px solid var(--border-color);
-  background: white;
+  border: 1px solid var(--border);
+  background: var(--surface);
   border-radius: 12px;
   margin-bottom: 10px;
   box-shadow: var(--shadow-soft);
@@ -933,7 +924,7 @@
 
 .attractions-list .attraction-details {
   font-size: 0.95rem;
-  color: var(--dark-color);
+  color: var(--text-heading);
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -957,9 +948,9 @@
 .attractions-list .related-packages {
   margin-top: 10px;
   padding: 12px;
-  background: var(--light-color);
+  background: var(--surface-muted);
   border-radius: 8px;
-  border-left: 3px solid var(--primary-color);
+  border-left: 3px solid var(--primary);
   position: relative;
   overflow: hidden;
 }
@@ -994,7 +985,7 @@
 
 .attractions-list .related-packages .package-item {
   font-size: 0.85rem;
-  color: var(--text-color);
+  color: var(--text-body);
   padding: 8px 0;
   border-bottom: 1px dashed rgba(255, 126, 95, 0.2);
   display: flex;
@@ -1014,7 +1005,7 @@
 }
 
 .attractions-list .related-packages .package-item strong {
-  color: var(--dark-color);
+  color: var(--text-heading);
   font-weight: 600;
 }
 
@@ -1041,17 +1032,17 @@
   padding: 20px;
   background: rgba(255, 126, 95, 0.05);
   border-radius: 8px;
-  color: var(--text-color);
+  color: var(--text-body);
 }
 
 /* Nearby Section with Enhanced Card Design */
 .nearby-section {
   margin: 40px 0;
   padding: 30px;
-  background: white;
+  background: var(--surface);
   border-radius: 16px;
   box-shadow: var(--shadow-soft);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   position: relative;
   overflow: hidden;
 }
@@ -1248,7 +1239,7 @@
 }
 
 .packages-header .search-bar {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -1264,7 +1255,7 @@
 }
 
 .packages-header .history-dropdown {
-  background: white;
+  background: rgba(255, 255, 255, 0.97);
   border: 1px solid rgba(255, 126, 95, 0.2);
 }
 
@@ -1272,12 +1263,12 @@
 .filter-container {
   margin: 0 auto 25px;
   max-width: 900px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--surface);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--border);
 }
 
 /* Add spacing between map and filters */

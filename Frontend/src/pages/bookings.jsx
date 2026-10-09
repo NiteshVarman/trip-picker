@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { MapPin, Calendar, Clock, Users, DollarSign, CheckCircle, XCircle, Edit, Trash2, CalendarIcon, ArrowRight, Loader } from 'lucide-react';
 import "./bookings.css";
+import BackButton from "../components/BackButton";
 
 const Bookings = () => {
     const [bookings, setBookings] = useState([]);
@@ -157,6 +158,7 @@ const Bookings = () => {
 
     return (
         <div className="bookings-container">
+            <BackButton />
             <div className="bookings-header">
                 <h2 className="bookings-title">My Travel Bookings</h2>
                 <p className="bookings-subtitle">Manage all your tour bookings in one place</p>
