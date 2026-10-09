@@ -7,6 +7,8 @@ const passport = require("passport");
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 // Database connection
 require('./config/db');
 
