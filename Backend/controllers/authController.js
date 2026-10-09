@@ -2,17 +2,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { google } = require("googleapis");
 const { User, OTP } = require("../models/user");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 const crypto = require("crypto");
 const { oAuth2Client } = require("../utils/googleAuth");
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 function generateJWT(user) {
   return jwt.sign(
@@ -134,14 +128,14 @@ const forgotPassword = async (req, res) => {
   await OTP.create({ email, otp });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: "TripPicker <onboarding@resend.dev>",
     to: email,
     subject: "Your Password Reset OTP",
     text: `Your OTP for password reset is: ${otp}. It is valid for 5 minutes.`,
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    await resend.emails.send(mailOptions);
     res.json({ message: "OTP sent successfully!" });
   } catch (error) {
     console.error("Error sending OTP:", error);
