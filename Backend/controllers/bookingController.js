@@ -121,7 +121,7 @@ const verifyPayment = async (req, res) => {
       orderId,
       transactionId: paymentId,
       user: new mongoose.Types.ObjectId(userId),
-      listing: listingTitle,
+      listing: listing._id,   // ObjectId reference — not the raw title string
       amount,
       date,
       time,
@@ -140,6 +140,9 @@ const verifyPayment = async (req, res) => {
     });
 
     await newPayment.save();
+    // Populate the listing reference so the response includes the title and
+    // place, matching the shape the frontend already expects.
+    await newPayment.populate("listing", "title place type");
     res.json({ success: true, message: "Payment successful!", booking: newPayment });
   } catch (error) {
     console.error("[verifyPayment] Unexpected error:", error.message);
@@ -150,7 +153,8 @@ const verifyPayment = async (req, res) => {
 const generatePDF = async (req, res) => {
   try {
     const { orderId } = req.params;
-    const bookingDetails = await Booking.findOne({ orderId });
+    const bookingDetails = await Booking.findOne({ orderId })
+      .populate("listing", "title place type");
 
     if (!bookingDetails) {
       return res.status(404).json({ success: false, message: "Booking not found!" });
@@ -166,17 +170,12 @@ const generatePDF = async (req, res) => {
 const getMyBookings = async (req, res) => {
   try {
     const userId = req.userId;
-    const bookings = await Booking.find({ user: userId });
-    const populatedBookings = await Promise.all(
-      bookings.map(async (booking) => {
-        const listing = await Listing.findOne({ title: booking.listing });
-        return {
-          ...booking._doc,
-          listing: listing ? { title: listing.title, place: listing.place, type: listing.type } : null,
-        };
-      })
-    );
-    res.json({ success: true, bookings: populatedBookings });
+    // A single query with populate replaces the previous N+1 pattern
+    // (one Listing.findOne per booking). All listing fields are fetched
+    // in one aggregated round-trip to MongoDB.
+    const bookings = await Booking.find({ user: userId })
+      .populate("listing", "title place type");
+    res.json({ success: true, bookings });
   } catch (error) {
     console.error("Error fetching bookings:", error);
     res.status(500).json({ success: false, message: "Failed to fetch bookings", error });

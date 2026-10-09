@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 const BookingSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    listing: { type: String, required: true },
+    // Store a proper ObjectId reference instead of a plain string title.
+    // This enables .populate() and eliminates the N+1 query in getMyBookings.
+    listing: { type: mongoose.Schema.Types.ObjectId, ref: "Listing", required: true },
     amount: { type: Number, required: true },
     taxAmount: { type: Number, default: 0 },
     discountAmount: { type: Number, default: 0 },

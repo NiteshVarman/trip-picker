@@ -24,7 +24,7 @@ const generateBookingPDF = (bookingDetails, res) => {
     doc.fontSize(12).text(`Order ID: ${bookingDetails.orderId}`);
     doc.text(`Transaction ID: ${bookingDetails.transactionId}`);
     doc.text(`User ID: ${bookingDetails.user}`);
-    doc.text(`Listing ID: ${bookingDetails.listing}`);
+    doc.text(`Listing: ${bookingDetails.listing?.title || bookingDetails.listing}`);
     doc.text(`Amount Paid: ₹${bookingDetails.amount}`);
     doc.text(`Date: ${bookingDetails.date}`);
     doc.text(`Time: ${bookingDetails.time}`);

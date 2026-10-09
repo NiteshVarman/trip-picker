@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { google } = require("googleapis");
-const User = require("../models/user").User;
+const { User, OTP } = require("../models/user");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const { oAuth2Client } = require("../utils/googleAuth");
@@ -13,8 +13,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
-
-const otpStore = {};
 
 function generateJWT(user) {
   return jwt.sign(
@@ -120,8 +118,20 @@ const forgotPassword = async (req, res) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ error: "Email is required" });
 
+  // Verify the email belongs to a registered user before generating an OTP.
+  const user = await User.findOne({ email });
+  if (!user) {
+    // Return a generic success message to avoid leaking whether an email
+    // is registered (email enumeration protection).
+    return res.json({ message: "OTP sent successfully!" });
+  }
+
   const otp = crypto.randomInt(100000, 999999).toString();
-  otpStore[email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 };
+
+  // Remove any existing OTP for this email before creating a new one,
+  // so only one valid OTP exists at a time.
+  await OTP.deleteMany({ email });
+  await OTP.create({ email, otp });
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
@@ -139,26 +149,26 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-const verifyOtp = (req, res) => {
+const verifyOtp = async (req, res) => {
   const { email, otp } = req.body;
   if (!email || !otp) return res.status(400).json({ error: "Email and OTP are required" });
 
-  const storedOtpData = otpStore[email];
+  // Look up the OTP document. The TTL index on the model handles expiry
+  // automatically — a document that has passed its 5-minute TTL will have
+  // already been deleted by MongoDB before this query runs.
+  const storedOtpData = await OTP.findOne({ email });
 
   if (!storedOtpData) {
     return res.status(400).json({ error: "Invalid or expired OTP" });
-  }
-
-  if (Date.now() > storedOtpData.expiresAt) {
-    delete otpStore[email];
-    return res.status(400).json({ error: "OTP has expired. Request a new one." });
   }
 
   if (storedOtpData.otp !== otp) {
     return res.status(400).json({ error: "Invalid OTP" });
   }
 
-  delete otpStore[email];
+  // OTP matched — delete it so it cannot be reused.
+  await OTP.deleteOne({ _id: storedOtpData._id });
+
   res.json({ message: "OTP verified!", success: true, redirectUrl: `/reset-password?email=${encodeURIComponent(email)}` });
 };
 
