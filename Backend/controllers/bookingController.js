@@ -170,12 +170,38 @@ const generatePDF = async (req, res) => {
 const getMyBookings = async (req, res) => {
   try {
     const userId = req.userId;
-    // A single query with populate replaces the previous N+1 pattern
-    // (one Listing.findOne per booking). All listing fields are fetched
-    // in one aggregated round-trip to MongoDB.
     const bookings = await Booking.find({ user: userId })
       .populate("listing", "title place type");
-    res.json({ success: true, bookings });
+
+    // Handle legacy bookings created before the schema migration where
+    // `listing` was stored as a plain title string instead of an ObjectId.
+    // For those documents populate() returns null — fall back to a title
+    // lookup so they still appear correctly on the bookings page.
+    const normalised = await Promise.all(
+      bookings.map(async (booking) => {
+        if (booking.listing) {
+          // Already populated as an ObjectId reference — normal case.
+          return booking;
+        }
+
+        // listing is null after populate(), meaning the field holds a raw
+        // string. Access the underlying document value directly.
+        const rawListing = booking.toObject().listing;
+        if (rawListing && typeof rawListing === "string") {
+          const found = await Listing.findOne({ title: rawListing })
+            .select("title place type");
+          const obj = booking.toObject();
+          obj.listing = found
+            ? { title: found.title, place: found.place, type: found.type }
+            : { title: rawListing, place: null, type: null };
+          return obj;
+        }
+
+        return booking;
+      })
+    );
+
+    res.json({ success: true, bookings: normalised });
   } catch (error) {
     console.error("Error fetching bookings:", error);
     res.status(500).json({ success: false, message: "Failed to fetch bookings", error });
