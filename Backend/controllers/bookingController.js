@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const Booking = require("../models/booking");
 const Listing = require("../models/listing");
 const razorpay = require("../config/razorpay");
@@ -43,8 +44,70 @@ const createOrder = async (req, res) => {
 
 const verifyPayment = async (req, res) => {
   try {
-    const { orderId, paymentId, userId, listingTitle, amount, date, time, numAdults, numChildren, guestNames, contactNumber, altContactNumber, address } = req.body;
+    const {
+      orderId,
+      paymentId,
+      razorpay_signature,
+      userId,
+      listingTitle,
+      amount,
+      date,
+      time,
+      numAdults,
+      numChildren,
+      guestNames,
+      contactNumber,
+      altContactNumber,
+      address,
+    } = req.body;
 
+    // ------------------------------------------------------------------
+    // 1. Validate that all three Razorpay identifiers were supplied.
+    //    Missing any one of them means the request is malformed or
+    //    the payment dialog was never completed legitimately.
+    // ------------------------------------------------------------------
+    if (!orderId || !paymentId || !razorpay_signature) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing payment identifiers. Verification failed.",
+      });
+    }
+
+    // ------------------------------------------------------------------
+    // 2. Verify the HMAC-SHA256 signature.
+    //
+    //    Razorpay signs: "<orderId>|<paymentId>" with RAZORPAY_KEY_SECRET.
+    //    We recompute the same signature server-side and compare using
+    //    timingSafeEqual to prevent timing-based side-channel attacks.
+    //    The secret never leaves the server and is never included in any
+    //    log or response.
+    // ------------------------------------------------------------------
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(`${orderId}|${paymentId}`)
+      .digest("hex");
+
+    const receivedSignatureBuf = Buffer.from(razorpay_signature, "hex");
+    const expectedSignatureBuf = Buffer.from(expectedSignature, "hex");
+
+    // Buffers must be the same length for timingSafeEqual; if they differ
+    // the signature is definitely invalid.
+    const signaturesMatch =
+      receivedSignatureBuf.length === expectedSignatureBuf.length &&
+      crypto.timingSafeEqual(receivedSignatureBuf, expectedSignatureBuf);
+
+    if (!signaturesMatch) {
+      // Log only the order ID for debugging — never log the signature itself.
+      console.warn(`[verifyPayment] Signature mismatch for orderId: ${orderId}`);
+      return res.status(400).json({
+        success: false,
+        message: "Payment verification failed. Invalid signature.",
+      });
+    }
+
+    // ------------------------------------------------------------------
+    // 3. Signature is valid. Proceed with creating the booking record.
+    // ------------------------------------------------------------------
     const listing = await Listing.findOne({ title: listingTitle });
     if (!listing) {
       return res.status(400).json({ success: false, message: "Invalid listing title" });
@@ -79,8 +142,8 @@ const verifyPayment = async (req, res) => {
     await newPayment.save();
     res.json({ success: true, message: "Payment successful!", booking: newPayment });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Payment verification failed", error });
+    console.error("[verifyPayment] Unexpected error:", error.message);
+    res.status(500).json({ success: false, message: "Payment verification failed" });
   }
 };
 
