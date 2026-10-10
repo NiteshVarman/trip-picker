@@ -142,142 +142,199 @@ body.dark-theme .footer {
   text-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* Simplified Splash Screen - removing globe, plane, etc. */
+/* ════════════════════════════════════════════════
+   Professional Splash Screen
+   Shows once per session via sessionStorage flag
+   ════════════════════════════════════════════════ */
 .splash-screen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  inset: 0;
   z-index: 2000;
-  animation: fadeOut 1s ease-in-out 4s forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  /* Rich multi-stop gradient — deep coral to amber */
+  background: linear-gradient(135deg,
+    #ff5f3f 0%,
+    #ff7e5f 30%,
+    #feb47b 70%,
+    #ffc89a 100%);
+  animation: splashEntry 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Exit state — triggered by adding .splash-screen--exit class */
+.splash-screen--exit {
+  animation: splashExit 0.7s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+/* ── Animated background orbs ── */
+.splash-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+  animation: orbDrift 8s ease-in-out infinite alternate;
+}
+
+.splash-orb--1 {
+  width: 480px;
+  height: 480px;
+  background: rgba(255, 255, 255, 0.3);
+  top: -120px;
+  left: -120px;
+  animation-duration: 9s;
+}
+
+.splash-orb--2 {
+  width: 360px;
+  height: 360px;
+  background: rgba(255, 100, 60, 0.4);
+  bottom: -80px;
+  right: -80px;
+  animation-duration: 7s;
+  animation-delay: -3s;
+}
+
+.splash-orb--3 {
+  width: 260px;
+  height: 260px;
+  background: rgba(255, 210, 140, 0.45);
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-duration: 11s;
+  animation-delay: -5s;
+}
+
+/* ── Centre content ── */
 .splash-content {
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  gap: 24px;
+}
+
+/* ── Brand wordmark ── */
+.splash-logo {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
   position: relative;
-  z-index: 10;
+  padding-bottom: 14px;
+  animation: splashLogoReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
 }
 
-.splash-text {
-  margin-top: 20px;
-  color: white;
+.splash-logo__travel {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -1px;
 }
 
-.splash-text h1 {
-  font-weight: bold;
-  font-size: 3.5rem;
-  margin-bottom: 20px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  animation: textReveal 1.5s ease forwards;
-  opacity: 0;
-  transform: translateY(20px);
+.splash-logo__explorer {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 700;
+  color: #fff;
+  font-style: italic;
+  letter-spacing: -1px;
 }
 
-/* Simplified Splash Image Animation */
-.splash-image {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid white;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  transform: scale(0.8);
-  animation: imageEnlarge 3s ease-in-out forwards;
-  position: relative;
-  z-index: 5;
-}
-
-/* Background Elements */
-.splash-bg-elements {
+/* thin underline accent */
+.splash-logo::after {
+  content: "";
+  display: block;
   position: absolute;
-  top: 0;
+  bottom: -8px;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 9999px;
+  transform: scaleX(0);
+  animation: underlineExpand 0.6s ease 0.9s forwards;
+}
+
+/* ── Tagline words — staggered reveal ── */
+.splash-tagline {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+}
+
+.splash-tagline span {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.splash-tagline span:nth-child(1) { animation: taglineWord 0.5s ease 0.7s forwards; }
+.splash-tagline span:nth-child(2) { animation: taglineWord 0.5s ease 0.95s forwards; }
+.splash-tagline span:nth-child(3) { animation: taglineWord 0.5s ease 1.2s forwards; }
+
+/* ── Progress bar ── */
+.splash-progress {
+  width: min(320px, 70vw);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
   overflow: hidden;
-  opacity: 0.2;
+  animation: splashFadeIn 0.4s ease 1s both;
 }
 
-.bg-element {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  filter: blur(5px);
-  animation: floatElement 15s linear infinite;
+.splash-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 9999px;
+  animation: progressFill 2.4s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
 }
 
-/* Keyframes */
-@keyframes textReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ── Keyframes ── */
+@keyframes splashEntry {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-@keyframes imageEnlarge {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-    filter: blur(10px);
-  }
-  30% {
-    opacity: 1;
-    transform: scale(0.9);
-    filter: blur(5px);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1.1);
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
-  }
+@keyframes splashExit {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.04); }
 }
 
-@keyframes floatElement {
-  0% {
-    transform: translate(0, 0);
-  }
-  25% {
-    transform: translate(100px, 100px);
-  }
-  50% {
-    transform: translate(200px, 0);
-  }
-  75% {
-    transform: translate(100px, -100px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
+@keyframes orbDrift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.08); }
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
+@keyframes splashLogoReveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes underlineExpand {
+  to { transform: scaleX(1); }
+}
+
+@keyframes taglineWord {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes splashFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: 100%; }
 }
 
 /* Navbar */

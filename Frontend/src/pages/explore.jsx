@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Search, RefreshCw, MapPin, Calendar, DollarSign, Users, Clock, Star } from "lucide-react"
+import { Search, RefreshCw, MapPin, Calendar, DollarSign, Users, Clock, Star, Sparkles, Brain, Zap, TrendingUp } from "lucide-react"
 import "./explore.css"
 import BackButton from "../components/BackButton"
 
@@ -69,64 +69,86 @@ const HomePage = () => {
   return (
     <div className="container">
       <BackButton />
-      <h1>Tourism Recommendation System</h1>
 
+      {/* ── AI Hero Header ── */}
+      <div className="explore-hero">
+        <div className="explore-ai-badge">
+          <span className="explore-ai-badge__dot" />
+          AI-Powered Recommendations
+        </div>
+        <h1>Find Your Perfect Trip</h1>
+        <p className="explore-subtitle">
+          Tell us your travel preferences and our AI engine will surface the best-matched
+          destinations from thousands of options — instantly.
+        </p>
+        <div className="explore-features">
+          <span className="explore-feature-pill"><Brain size={13} /> Smart Matching</span>
+          <span className="explore-feature-pill"><Zap size={13} /> Instant Results</span>
+          <span className="explore-feature-pill"><TrendingUp size={13} /> Personalised</span>
+          <span className="explore-feature-pill"><Sparkles size={13} /> Curated Picks</span>
+        </div>
+      </div>
+
+      {/* ── Preference Form ── */}
       <div className="form-container">
-        <div className="form-group">
-          <label>Type of Tourist Place:</label>
-          <input
-            type="text"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            placeholder="e.g., beach, mountain, historical"
-            required
-          />
-        </div>
+        <div className="form-section-label">Your Travel Preferences</div>
+        <div className="form-grid">
+          <div className="form-group">
+            <label>Type of Place</label>
+            <input
+              type="text"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              placeholder="e.g., beach, mountain, historical"
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label>Budget:</label>
-          <select value={budget} onChange={(e) => setBudget(e.target.value)} required>
-            <option value="">Select Budget</option>
-            <option value="High">High</option>
-            <option value="Moderate">Moderate</option>
-            <option value="Low">Low</option>
-          </select>
-        </div>
+          <div className="form-group">
+            <label>Budget</label>
+            <select value={budget} onChange={(e) => setBudget(e.target.value)} required>
+              <option value="">Select Budget</option>
+              <option value="High">High</option>
+              <option value="Moderate">Moderate</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
 
-        <div className="form-group">
-          <label>Best Time to Visit:</label>
-          <input
-            type="text"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            placeholder="e.g., summer, winter, monsoon"
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label>Best Time to Visit</label>
+            <input
+              type="text"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              placeholder="e.g., summer, winter, monsoon"
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label>Type of Tour Package:</label>
-          <select value={tourPackage} onChange={(e) => setTourPackage(e.target.value)} required>
-            <option value="">Select Package</option>
-            <option value="Family">Family</option>
-            <option value="Solo">Solo</option>
-            <option value="Friends">Friends</option>
-            <option value="Couple">Couple</option>
-          </select>
-        </div>
+          <div className="form-group">
+            <label>Tour Package Type</label>
+            <select value={tourPackage} onChange={(e) => setTourPackage(e.target.value)} required>
+              <option value="">Select Package</option>
+              <option value="Family">Family</option>
+              <option value="Solo">Solo</option>
+              <option value="Friends">Friends</option>
+              <option value="Couple">Couple</option>
+            </select>
+          </div>
 
-        <div className="form-group">
-          <label>No. of Days Preferred:</label>
-          <input type="number" value={days} onChange={(e) => setDays(e.target.value)} min="1" required />
+          <div className="form-group">
+            <label>No. of Days</label>
+            <input type="number" value={days} onChange={(e) => setDays(e.target.value)} min="1" required placeholder="e.g., 5" />
+          </div>
         </div>
 
         <div className="button-group">
           <button className="btn btn-primary" onClick={getRecommendations}>
-            <Search size={18} />
-            Get Recommendations
+            <Search size={16} />
+            Get AI Recommendations
           </button>
           <button className="btn btn-secondary" onClick={resetForm}>
-            <RefreshCw size={18} />
+            <RefreshCw size={16} />
             Reset
           </button>
         </div>

@@ -113,7 +113,11 @@ export default function Home({ firstLoading, setFirstLoading }) {
   const { isDark, toggleTheme } = useTheme()
   const [currentVideo, setCurrentVideo] = useState(0)
   const [fade, setFade] = useState(true)
-  const [showSplash, setShowSplash] = useState(true)
+  // Show splash only if this is the first session load (not already seen this session)
+  const [showSplash, setShowSplash] = useState(
+    () => !sessionStorage.getItem("splashSeen")
+  )
+  const [splashExiting, setSplashExiting] = useState(false)
   const [animationKey, setAnimationKey] = useState(Date.now())
   const [isScrolled, setIsScrolled] = useState(false)
   const [scrollY, setScrollY] = useState(0)
@@ -126,14 +130,20 @@ export default function Home({ firstLoading, setFirstLoading }) {
   const parallaxBgRef = useRef(null)
 
   useEffect(() => {
-    if (firstLoading) {
-      const timer = setTimeout(() => {
+    if (showSplash) {
+      sessionStorage.setItem("splashSeen", "1")
+      // Start exit animation at 2.8s, fully hide at 3.5s
+      const exitTimer = setTimeout(() => setSplashExiting(true), 2800)
+      const hideTimer = setTimeout(() => {
         setShowSplash(false)
         setFirstLoading(false)
-      }, 5000)
-      return () => clearTimeout(timer)
+      }, 3500)
+      return () => {
+        clearTimeout(exitTimer)
+        clearTimeout(hideTimer)
+      }
     }
-  }, [firstLoading, setFirstLoading])
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -225,32 +235,30 @@ export default function Home({ firstLoading, setFirstLoading }) {
 
   return (
     <div className="home-wrapper">
-      {showSplash && firstLoading ? (
-        <div className="splash-screen">
-          <div className="splash-bg-elements">
-            {[...Array(10)].map((_, i) => (
-              <div
-                key={i}
-                className="bg-element"
-                style={{
-                  width: `${Math.random() * 100 + 50}px`,
-                  height: `${Math.random() * 100 + 50}px`,
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDuration: `${Math.random() * 10 + 10}s`,
-                  animationDelay: `${Math.random() * 5}s`,
-                }}
-              ></div>
-            ))}
-          </div>
+      {showSplash ? (
+        <div className={`splash-screen${splashExiting ? " splash-screen--exit" : ""}`}>
+          {/* Animated geometric orbs */}
+          <div className="splash-orb splash-orb--1" />
+          <div className="splash-orb splash-orb--2" />
+          <div className="splash-orb splash-orb--3" />
+
           <div className="splash-content">
-            <img
-              src="https://thumbs.dreamstime.com/b/travel-around-world-poster-tourism-vacation-earth-world-journey-global-vector-illustration-world-travel-concept-banner-73263954.jpg"
-              alt="Splash Screen"
-              className="splash-image"
-            />
-            <div className="splash-text">
-              <h1>Discover the World</h1>
+            {/* Brand wordmark */}
+            <div className="splash-logo">
+              <span className="splash-logo__travel">Travel</span>
+              <span className="splash-logo__explorer">Explorer</span>
+            </div>
+
+            {/* Tagline with word reveal */}
+            <p className="splash-tagline">
+              <span>Discover.</span>
+              <span>Explore.</span>
+              <span>Experience.</span>
+            </p>
+
+            {/* Progress bar */}
+            <div className="splash-progress">
+              <div className="splash-progress__bar" />
             </div>
           </div>
         </div>
