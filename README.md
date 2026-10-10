@@ -8,7 +8,10 @@ TripPicker is a full-stack MERN travel booking platform that lets users discover
 
 ## 🏠 Home Page
 
-![TripPicker Home Page](https://i.imgur.com/placeholder-home.png)
+<img width="2836" height="1446" alt="Screenshot 2026-10-10 103039" src="https://github.com/user-attachments/assets/7372ca26-9c1d-436d-bef9-1a4996a306c8" />
+<img width="2840" height="1464" alt="Screenshot 2026-10-10 103029" src="https://github.com/user-attachments/assets/d9250d87-024b-44ca-9978-731be74ef8df" />
+
+
 
 > *The home page features a cinematic video carousel, animated package category cards, highlights reel, and a smart packages section with smooth scroll navigation.*
 
@@ -253,18 +256,6 @@ trip-picker/
 │
 └── README.md
 ```
-
----
-
-## 📊 Evaluation Summary
-
-| Criteria | Details |
-|---|---|
-| **MERN Skills** | Full React SPA + Express REST API + MongoDB + Node.js |
-| **Code Quality** | Modular structure, reusable contexts, CSS design tokens, named exports |
-| **AI Usage** | IBM Kiro used for component dev, API design, debugging, DB integration, and refactoring |
-| **Problem Solving** | Fixed production email timeouts, booking data migration bugs, auth state race conditions |
-| **GitHub** | Descriptive commits, logical project structure, `.env.example`, `.gitignore` |
 
 ---
 
