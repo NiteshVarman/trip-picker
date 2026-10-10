@@ -1230,7 +1230,7 @@ body.dark-theme .footer {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #ddd;
+  background: var(--surface-muted);
   background-image: url("https://randomuser.me/api/portraits/women/44.jpg");
   background-size: cover;
 }
@@ -1351,8 +1351,8 @@ body.dark-theme .footer {
 
 /* Footer */
 .footer {
-  background: #1e2a3a;
-  color: white;
+  background: #1e2a3a; /* dark navy footer — same in both themes */
+  color: #f0f0f0;
   padding: 60px 5% 20px;
   position: relative;
 }

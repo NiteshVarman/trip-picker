@@ -213,7 +213,7 @@
 .clear-history {
   width: 100%;
   background: var(--surface-muted);
-  color: #f56565;
+  color: #dc2626; /* red — semantic danger colour */
   padding: 12px;
   border: none;
   border-top: 1px solid var(--border);
@@ -472,7 +472,7 @@
   top: 15px;
   right: 15px;
   background: rgba(255, 255, 255, 0.92);
-  color: #2d3748;
+  color: var(--text-heading);
   padding: 5px 10px;
   border-radius: 50px;
   font-size: 0.8rem;

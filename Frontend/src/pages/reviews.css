@@ -148,13 +148,13 @@
     padding: 0;
     cursor: pointer;
     font-size: 1.8rem;
-    color: #ddd;
+    color: var(--border);
     transition: color 0.2s ease;
   }
   
   .star-rating button.active,
   .star-rating button:hover {
-    color: #FFD700;
+    color: #ffd700; /* gold — star rating, intentional */
   }
   
   /* File Upload */
@@ -347,7 +347,7 @@
   
   .stars {
     display: flex;
-    color: #FFD700;
+    color: #ffd700; /* gold — star rating, intentional */
   }
   
   .review-content {
@@ -537,21 +537,21 @@
   }
   
   .edit-button {
-    color: #4a6fa5;
+    color: var(--accent);
   }
   
   .edit-button:hover {
-    background: rgba(74, 111, 165, 0.1);
-    border-color: #4a6fa5;
+    background: rgba(0, 188, 212, 0.1);
+    border-color: var(--accent);
   }
   
   .delete-button {
-    color: #e74c3c;
+    color: #dc2626; /* red — semantic danger colour */
   }
   
   .delete-button:hover {
-    background: rgba(231, 76, 60, 0.1);
-    border-color: #e74c3c;
+    background: rgba(220, 38, 38, 0.1);
+    border-color: #dc2626;
   }
   
   /* Empty State */

@@ -195,7 +195,7 @@
 
 /* Disabled Button */
 .payment-container button:disabled {
-  background: #ccc;
+  background: var(--surface-muted);
   cursor: not-allowed;
   box-shadow: none;
 }

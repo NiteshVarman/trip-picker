@@ -1,69 +1,81 @@
 #map {
     width: 900px;
     height: 700px;
-  }
+}
 
-  #map .state {
+/* ── State paths ── */
+#map .state {
     fill: white;
     stroke: #8a8a8a;
     stroke-width: 1;
-  }
+    transition: fill 0.15s ease;
+    cursor: pointer;
+}
 
-  #map .state:hover {
+#map .state:hover {
     fill: #ffc107;
-  }
+}
 
-  #map .state-name {
-    fill: #ffffff;
-    stroke: #080808;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    pointer-events: none;
-    display: none;
-  }
-
-  #map .state:hover .state-name {
-    display: block;
-  }
-  #map .tn {
-    fill: rgb(0, 0, 0);
+#map .tn {
+    fill: #ddd;
     stroke: #8a8a8a;
     stroke-width: 1;
-  }
+    transition: fill 0.15s ease;
+    cursor: pointer;
+}
 
-  #map .tn:hover {
+#map .tn:hover {
     fill: #ffc107;
-  }
+}
 
-  #map .state-name {
-    fill: #ffffff;
-    stroke: #000000;
-    font-family: Arial, sans-serif;
+/* ── State name label ── */
+#map .state-name {
+    fill: #1a1a1a;
+    stroke: rgba(255, 255, 255, 0.7);
+    stroke-width: 3px;
+    paint-order: stroke fill;
+    font-family: "Poppins", Arial, sans-serif;
     font-size: 12px;
+    font-weight: 600;
     pointer-events: none;
     display: none;
-  }
+}
 
-  #map .tn:hover .state-name {
+#map .state:hover .state-name,
+#map .tn:hover .state-name {
     display: block;
-  }
+}
 
-  h1 {
+/* ── Page heading ── */
+h1 {
     color: var(--text-heading, #000);
     font-family: "Playfair Display", serif;
     font-size: 40px;
     text-align: center;
     margin-top: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
+}
 
 /* ── Dark theme overrides ── */
 body.dark-theme #map .state {
-  fill: var(--surface-alt);
-  stroke: rgba(255,255,255,0.2);
+    fill: var(--surface-alt);
+    stroke: rgba(255, 255, 255, 0.15);
 }
 
 body.dark-theme #map .tn {
-  fill: var(--surface);
-  stroke: rgba(255,255,255,0.2);
+    fill: var(--surface);
+    stroke: rgba(255, 255, 255, 0.15);
+}
+
+/* Hover colour is same amber in both themes — text must contrast against it */
+body.dark-theme #map .state:hover,
+body.dark-theme #map .tn:hover {
+    fill: #ffc107;
+}
+
+/* On amber (#ffc107) background, dark text is highest contrast */
+body.dark-theme #map .state-name {
+    fill: #1a1a1a;
+    stroke: rgba(255, 255, 255, 0.8);
+    stroke-width: 3px;
 }

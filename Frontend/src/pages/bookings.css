@@ -214,12 +214,12 @@
   
   .status-completed {
     background-color: rgba(22, 163, 74, 0.1);
-    color: #16a34a;
+    color: #16a34a; /* green — semantic, not brand */
   }
   
   .status-pending {
     background-color: rgba(220, 38, 38, 0.1);
-    color: #dc2626;
+    color: #dc2626; /* red — semantic, not brand */
   }
   
   /* Action Buttons */
@@ -245,7 +245,7 @@
   
   .edit-button {
     background-color: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    color: var(--accent);
   }
   
   .edit-button:hover {
@@ -254,7 +254,7 @@
   
   .cancel-button {
     background-color: rgba(220, 38, 38, 0.1);
-    color: #dc2626;
+    color: #dc2626; /* red — semantic danger colour */
   }
   
   .cancel-button:hover {
@@ -411,13 +411,13 @@
   
   .error-icon {
     font-size: 3rem;
-    color: #dc2626;
+    color: #dc2626; /* red — semantic error colour */
     margin-bottom: 20px;
   }
   
   .error-text {
     font-size: 1.2rem;
-    color: #dc2626;
+    color: #dc2626; /* red — semantic error colour */
     text-align: center;
     max-width: 400px;
   }

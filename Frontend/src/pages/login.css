@@ -20,7 +20,7 @@ body {
 }
 
 .content button {
-    background-color: #82257b;
+    background-color: var(--primary);
     color: #fff;
     padding: 10px 10px;
     border: 1px;
@@ -34,12 +34,12 @@ body {
 
 /* Removed hover effect */
 .content button:hover {
-    background-color: #82257b;
+    background-color: var(--primary);
     opacity: 1;
 }
 
 .header-text h1, .forgot a {
-    color: #82257b;
+    color: var(--primary);
 }
 
 .right-box {
@@ -64,7 +64,7 @@ body {
 }
 
 .switch {
-    background-color: #82257b;
+    background-color: var(--primary);
     height: 100%;
     color: #fff;
     position: relative;
@@ -125,7 +125,7 @@ body.dark-theme .content {
 
 body.dark-theme .header-text h1,
 body.dark-theme .forgot a {
-  color: #c084bc;
+  color: var(--primary);
 }
 
 body.dark-theme .content input {

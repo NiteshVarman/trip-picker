@@ -277,7 +277,7 @@
 }
 
 .stars {
-  color: #ffd700;
+  color: #ffd700; /* gold — star rating colour, intentional */
   display: flex;
 }
 
@@ -300,11 +300,11 @@
 }
 
 .not-found {
-  color: #e74c3c;
+  color: #dc2626; /* red — semantic error colour */
   font-weight: 500;
   display: inline-block;
   padding: 8px 16px;
-  background: rgba(231, 76, 60, 0.1);
+  background: rgba(220, 38, 38, 0.1);
   border-radius: 50px;
   margin-top: 10px;
 }
