@@ -1,11 +1,14 @@
 import "./india.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const India = () => {
     const navigate = useNavigate();
     
     const [selectedState, setSelectedState] = useState("");
+
+    // Always open at top of page
+    useEffect(() => { window.scrollTo(0, 0); }, []);
 
     const handleClick = async (e) => {
         

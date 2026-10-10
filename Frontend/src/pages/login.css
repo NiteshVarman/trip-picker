@@ -24,51 +24,46 @@
   overflow: hidden;
   width: 860px;
   max-width: 100%;
-  /* height is driven by the form content via the spacer */
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  min-height: 560px;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Invisible spacer that keeps the card tall enough for form content */
-.lp-card::before {
-  content: "";
-  grid-column: 1;
-  grid-row: 1;
-  min-height: 540px;
-  pointer-events: none;
-}
-
-/* ── Form halves — stack on the grid ── */
+/* ── Form halves ── */
+/* Both forms fill the full card; the active one is visible */
 .lp-form {
   position: absolute;
-  top: 0;
+  inset: 0;
   width: 50%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+/* Login lives on the RIGHT half */
 .lp-form--login {
+  left: auto;
   right: 0;
   z-index: 2;
   opacity: 1;
   transform: translateX(0);
+  pointer-events: auto;
 }
 
+/* Register lives on the LEFT half — hidden by default */
 .lp-form--register {
   left: 0;
+  right: auto;
   z-index: 1;
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-20px);
+  transform: translateX(-16px);
 }
 
-/* active = register mode */
+/* active = register panel shown */
 .lp-card--active .lp-form--register {
-  z-index: 2;
+  z-index: 5;
   opacity: 1;
   pointer-events: auto;
   transform: translateX(0);
@@ -78,14 +73,14 @@
   z-index: 1;
   opacity: 0;
   pointer-events: none;
-  transform: translateX(20px);
+  transform: translateX(16px);
 }
 
 /* ── Inner padding ── */
 .lp-form-inner {
   width: 100%;
-  max-width: 340px;
-  padding: 48px 36px;
+  max-width: 320px;
+  padding: 44px 32px;
 }
 
 /* ── Brand accent dot above heading ── */
@@ -444,29 +439,26 @@
 @media (max-width: 640px) {
   .lp-card {
     display: block;
+    min-height: unset;
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
     border-radius: var(--radius-lg);
   }
 
-  /* hide spacer on mobile */
-  .lp-card::before {
-    display: none;
-  }
-
-  /* On mobile we hide the overlay and show forms sequentially */
+  /* On mobile hide the sliding overlay — use inline switch links */
   .lp-overlay {
     display: none;
   }
 
   .lp-form {
     position: relative;
+    inset: unset;
     width: 100%;
     height: auto;
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
     transition: none;
-    pointer-events: auto;
+    pointer-events: auto !important;
   }
 
   .lp-form--login {
@@ -479,9 +471,6 @@
 
   .lp-card--active .lp-form--register {
     display: flex;
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
   }
 
   .lp-card--active .lp-form--login {

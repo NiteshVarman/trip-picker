@@ -17,8 +17,9 @@
   box-sizing: border-box;
 }
 
-/* Constrain inner content width without constraining bg */
-.container > * {
+/* Constrain inner content width without constraining bg.
+   .back-btn is position:fixed so it must not inherit width. */
+.container > *:not(.back-btn) {
   width: 100%;
   max-width: 860px;
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Search, RefreshCw, MapPin, Calendar, DollarSign, Users, Clock, Star, Sparkles, Brain, Zap, TrendingUp } from "lucide-react"
 import "./explore.css"
 import BackButton from "../components/BackButton"
@@ -13,6 +13,9 @@ const HomePage = () => {
   const [days, setDays] = useState(1)
   const [recommendations, setRecommendations] = useState([])
   const [loading, setLoading] = useState(false)
+
+  // Always open at top of page
+  useEffect(() => { window.scrollTo(0, 0); }, [])
 
   const getRecommendations = async () => {
     if (!type || !budget || !time || !tourPackage || !days) {

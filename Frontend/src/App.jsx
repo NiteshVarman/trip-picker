@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Home from "./Home";
 import India from "./pages/india";
 import Place from "./pages/place";
@@ -17,11 +18,19 @@ import Reviews from "./pages/reviews";
 import PackageDetails from "./pages/packagedetails";
 
 
+// Scroll to top on every route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 export default function App() {
   const [firstLoading, setFirstLoading] = useState(true);
   const [userLocation, setUserLocation] = useState(null);
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home firstLoading={firstLoading} setFirstLoading={setFirstLoading}/>} />
         <Route path="/listings/indian" element={<India />} />
