@@ -199,32 +199,32 @@ npm start
 
 ---
 
-## 🤖 AI Development — Built with IBM Bob (Kiro)
+## 🤖 AI Development — Built with Kiro
 
-This project was built using **IBM Bob (Kiro)** as the primary AI development assistant throughout the development lifecycle.
+This project was built using **Kiro** as the primary AI development assistant throughout the development lifecycle.
 
 ### How AI Was Used
 
-Bob was used as an intelligent pair-programmer at every stage — from scaffolding initial components to debugging complex async flows and refactoring the entire authentication architecture.
+Kiro was used as an intelligent pair-programmer at every stage — from scaffolding initial components to debugging complex async flows and refactoring the entire authentication architecture.
 
 ---
 
-### Specific Tasks Where Bob Was Used
+### Specific Tasks Where Kiro Was Used
 
 #### 1. 🧩 Component Development
-Bob generated the full skeleton for complex pages like the **Packages Explorer** (`packages.jsx`) and the **Explore / AI Recommendation** page (`explore.jsx`), including animated card layouts, filter logic, search history via `localStorage`, and Framer Motion transitions. It also helped design reusable components like `BackButton` and wired up the `ThemeContext` provider pattern.
+Kiro generated the full skeleton for complex pages like the **Packages Explorer** (`packages.jsx`) and the **Explore / AI Recommendation** page (`explore.jsx`), including animated card layouts, filter logic, search history via `localStorage`, and Framer Motion transitions. It also helped design reusable components like `BackButton` and wired up the `ThemeContext` provider pattern.
 
 #### 2. 🔌 API Creation & Route Architecture
-All six Express route files (`auth`, `bookings`, `listings`, `reviews`, `users`, `recommendations`) were structured with Bob's guidance. Bob set up the Passport.js Google OAuth 2.0 strategy, generated JWT middleware, and built the Razorpay order-creation and payment-verification endpoints with proper error handling.
+All six Express route files (`auth`, `bookings`, `listings`, `reviews`, `users`, `recommendations`) were structured with Kiro's guidance. Kiro set up the Passport.js Google OAuth 2.0 strategy, generated JWT middleware, and built the Razorpay order-creation and payment-verification endpoints with proper error handling.
 
 #### 3. 🔍 Debugging
-Bob was essential in resolving a critical production issue where OTP emails were timing out on Render (ETIMEDOUT) due to SMTP being blocked — Bob identified the cause and migrated the email transport to **Resend's API**. It also resolved a double-render issue in `AuthContext` and fixed booking page crashes caused by pre-migration string-based listing references.
+Kiro was essential in resolving a critical production issue where OTP emails were timing out on Render (ETIMEDOUT) due to SMTP being blocked — Kiro identified the cause and migrated the email transport to **Resend's API**. It also resolved a double-render issue in `AuthContext` and fixed booking page crashes caused by pre-migration string-based listing references.
 
 #### 4. 🗄️ Database Integration
-Bob designed the Mongoose schemas for `Booking`, `User`, `Listing`, and `Review` models with proper population references and index hints. It also wrote the seed script for bulk-populating the listings collection from structured data, and added a `SEED_DB` environment flag to prevent accidental overwrites in production.
+Kiro designed the Mongoose schemas for `Booking`, `User`, `Listing`, and `Review` models with proper population references and index hints. It also wrote the seed script for bulk-populating the listings collection from structured data, and added a `SEED_DB` environment flag to prevent accidental overwrites in production.
 
 #### 5. ♻️ Refactoring
-Bob led a major refactoring effort to migrate the entire app from scattered inline styles to a **global CSS design token system**, added a dark-mode `ThemeContext`, replaced a sliding-overlay login UI with a cleaner tab-based architecture, and namespaced all login styles under the `lp-*` prefix to prevent global leakage. It also converted the India map from a fixed-layout component to a fully responsive SVG.
+Kiro led a major refactoring effort to migrate the entire app from scattered inline styles to a **global CSS design token system**, added a dark-mode `ThemeContext`, replaced a sliding-overlay login UI with a cleaner tab-based architecture, and namespaced all login styles under the `lp-*` prefix to prevent global leakage. It also converted the India map from a fixed-layout component to a fully responsive SVG.
 
 ---
 
@@ -262,7 +262,7 @@ trip-picker/
 |---|---|
 | **MERN Skills** | Full React SPA + Express REST API + MongoDB + Node.js |
 | **Code Quality** | Modular structure, reusable contexts, CSS design tokens, named exports |
-| **AI Usage** | IBM Bob used for component dev, API design, debugging, DB integration, and refactoring |
+| **AI Usage** | IBM Kiro used for component dev, API design, debugging, DB integration, and refactoring |
 | **Problem Solving** | Fixed production email timeouts, booking data migration bugs, auth state race conditions |
 | **GitHub** | Descriptive commits, logical project structure, `.env.example`, `.gitignore` |
 
