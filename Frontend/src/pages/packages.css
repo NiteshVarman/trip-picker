@@ -13,7 +13,7 @@
 .packages-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px 80px;
+  padding: 72px 20px 80px;
   color: var(--text-body);
   min-height: 100vh;
   background-color: var(--bg);
@@ -93,6 +93,13 @@
   flex-grow: 1;
   background: linear-gradient(to right, transparent, var(--primary-color), transparent);
   margin: 0 15px;
+}
+
+/* Search + filter section wrapper (used in JSX) */
+.search-filter-section {
+  max-width: 900px;
+  margin: 0 auto 20px;
+  padding: 0 20px;
 }
 
 /* Search Bar with Advanced Styling */

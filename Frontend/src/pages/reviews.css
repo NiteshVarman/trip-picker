@@ -1,15 +1,11 @@
 /* Reviews Page Styling — inherits design tokens from index.css */
 .reviews-container {
-  --box-shadow: var(--shadow-md);
-  --border-radius: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 30px 80px;
+  position: relative;
+  min-height: 100vh;
 }
-  
-  .reviews-container {
-    max-width: 1000px;
-    margin: 40px auto 80px;
-    padding: 30px;
-    position: relative;
-  }
   
   /* Header Styling */
   .reviews-container h2 {
@@ -33,33 +29,11 @@
     background: var(--primary-color);
   }
   
-  /* Back Button */
-  .back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: transparent;
-    color: var(--text-heading);
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    padding: 10px 20px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: var(--transition);
-    margin-bottom: 30px;
-  }
-  
-  .back-button:hover {
-    background: var(--surface-muted);
-    transform: translateX(-5px);
-  }
-  
   /* Review Form */
   .review-form {
     background: var(--surface);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
     padding: 30px;
     margin-bottom: 40px;
     position: relative;
@@ -277,8 +251,8 @@
   /* Review Card */
   .review-card {
     background: var(--surface);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
     padding: 25px;
     position: relative;
     overflow: hidden;
@@ -559,8 +533,8 @@
     text-align: center;
     padding: 60px 20px;
     background: var(--surface);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
   }
   
   .empty-state img {

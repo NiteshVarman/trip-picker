@@ -7,39 +7,30 @@
 
 /* Explore page inherits all tokens from index.css */
 .container {
-  --box-shadow: var(--shadow-md);
-  --border-radius: 16px;
-}
-
-.container {
   font-family: "Poppins", "Arial", sans-serif;
   color: var(--text-body);
-  background-image: linear-gradient(135deg, rgba(255, 126, 95, 0.05) 0%, rgba(254, 180, 123, 0.1) 100%);
+  background: var(--bg);
   max-width: 1000px;
   margin: 0 auto;
-  padding: 100px 20px 40px 20px; /* Increased top padding significantly */
+  padding: 80px 24px 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  position: relative; /* Added position relative */
+  min-height: 100vh;
 }
-  
+
 .container h1 {
   font-family: "Playfair Display", serif;
   font-size: 2.5rem;
   color: var(--text-heading);
   text-align: center;
-  position: absolute; /* Changed to absolute positioning */
-  top: 20px; /* Position from top */
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+  margin-bottom: 8px;
   padding-bottom: 15px;
   width: 100%;
   display: block;
-  z-index: 10; /* Ensure it's above other elements */
+  position: relative;
 }
 
 .container h1::after {
@@ -378,12 +369,11 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
   .container {
-    padding: 70px 15px 30px 15px;
+    padding: 72px 15px 30px;
   }
 
   .container h1 {
     font-size: 2rem;
-    top: 15px;
   }
 
   .form-container {
@@ -406,12 +396,11 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 60px 15px 20px 15px;
+    padding: 72px 15px 20px;
   }
 
   .container h1 {
     font-size: 1.8rem;
-    top: 10px;
   }
 
   .form-group label {
@@ -441,7 +430,7 @@
 
 /* ── Dark theme overrides ── */
 body.dark-theme .container {
-  background-image: linear-gradient(135deg, rgba(255,126,95,0.03) 0%, rgba(254,180,123,0.05) 100%);
+  background: var(--bg);
   color: var(--text-body);
 }
 

@@ -115,16 +115,27 @@ const Profile = () => {
   }
 
   if (isLoading) {
-    return <div className="loading-container">Loading profile...</div>
+    return (
+      <div className="profile-page">
+        <BackButton />
+        <div className="loading-container">Loading profile...</div>
+      </div>
+    )
   }
 
   if (error) {
-    return <div className="error-container">{error}</div>
+    return (
+      <div className="profile-page">
+        <BackButton />
+        <div className="error-container">{error}</div>
+      </div>
+    )
   }
 
   return (
-    <div className="profile-container">
+    <div className="profile-page">
       <BackButton />
+      <div className="profile-container">
       <div className="profile-header">
         <div className="profile-image-container">
           <div className="profile-image-wrapper">
@@ -158,6 +169,7 @@ const Profile = () => {
             <span className="info-value">{email || "Not set"}</span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )

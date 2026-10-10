@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
 import "./login.css";
 import BackButton from "../components/BackButton";
 
@@ -8,53 +9,44 @@ function Login() {
     const [registerData, setRegisterData] = useState({ name: "", email: "", password: "" });
     const [loginData, setLoginData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
-    const [registerMessage, setRegisterMessage] = useState("");
-    const [loginMessage, setLoginMessage] = useState("");
+    const [registerMessage, setRegisterMessage] = useState({ text: "", ok: false });
+    const [loginMessage, setLoginMessage] = useState({ text: "", ok: false });
+    const [showRegPw, setShowRegPw] = useState(false);
+    const [showLoginPw, setShowLoginPw] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
 
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    function SwitchContent() {
-        const content = document.getElementById('content');
-        content.classList.toggle('active');
-        setRegisterMessage("");
-        setLoginMessage("");
-    }
-
     const handleChange = (e, formType) => {
         const { name, value } = e.target;
         if (formType === "register") {
-            setRegisterData({ ...registerData, [name]: value });
+            setRegisterData(prev => ({ ...prev, [name]: value }));
         } else {
-            setLoginData({ ...loginData, [name]: value });
+            setLoginData(prev => ({ ...prev, [name]: value }));
         }
     };
 
     const validateRegister = () => {
-        let newErrors = {};
+        const newErrors = {};
         const { name, email, password } = registerData;
-
         if (!name.trim()) newErrors.name = "Name is required";
         if (!email.trim()) newErrors.email = "Email is required";
         else if (!isValidEmail(email)) newErrors.email = "Invalid email format";
-
         if (!password.trim()) newErrors.password = "Password is required";
-        else if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
-
+        else if (password.length < 6) newErrors.password = "Must be at least 6 characters";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
     const validateLogin = () => {
-        let newErrors = {};
+        const newErrors = {};
         const { email, password } = loginData;
-
         if (!email.trim()) newErrors.loginEmail = "Email is required";
         else if (!isValidEmail(email)) newErrors.loginEmail = "Invalid email format";
-
         if (!password.trim()) newErrors.loginPassword = "Password is required";
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -62,139 +54,232 @@ function Login() {
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         if (!validateRegister()) return;
-
         try {
+            setLoading(true);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(registerData),
             });
-
             const data = await response.json();
             if (response.ok) {
-                setRegisterMessage("User successfully registered! You can now login.");
+                setRegisterMessage({ text: "Account created! You can now sign in.", ok: true });
                 setRegisterData({ name: "", email: "", password: "" });
             } else {
-                setRegisterMessage(data.message);
+                setRegisterMessage({ text: data.message || "Registration failed.", ok: false });
             }
-        } catch (error) {
-            setRegisterMessage("Error connecting to the server");
+        } catch {
+            setRegisterMessage({ text: "Error connecting to the server.", ok: false });
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         if (!validateLogin()) return;
-
         try {
+            setLoading(true);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(loginData),
             });
-
             const data = await response.json();
             if (response.ok) {
-                setLoginMessage("Login successful! Redirecting...");
+                setLoginMessage({ text: "Login successful! Redirecting…", ok: true });
                 login(data.token);
                 navigate("/");
             } else {
-                setLoginMessage(data.message || "Invalid email or password");
+                setLoginMessage({ text: data.message || "Invalid email or password.", ok: false });
             }
-        } catch (error) {
-            setLoginMessage("Error connecting to the server");
+        } catch {
+            setLoginMessage({ text: "Error connecting to the server.", ok: false });
+        } finally {
+            setLoading(false);
         }
     };
 
+    const switchToRegister = () => {
+        setIsActive(true);
+        setLoginMessage({ text: "", ok: false });
+        setErrors({});
+    };
+
+    const switchToLogin = () => {
+        setIsActive(false);
+        setRegisterMessage({ text: "", ok: false });
+        setErrors({});
+    };
+
     return (
-        <>
-        <BackButton to="/" />
-        <div className='content justify-content-center align-items-center d-flex shadow-lg' id='content'>
-            {/* Registration Form */}
-            <div className='col-md-6 d-flex justify-content-center'>
-                <form onSubmit={handleRegisterSubmit}>
-                    <div className='header-text mb-4'>
-                        <h1>Create Account</h1>
-                    </div>
+        <div className="lp-page">
+            <BackButton to="/" />
 
-                    <div className='input-group mb-3'>
-                        <input type='text' name="name" placeholder='Name' className='form-control form-control-lg bg-light fs-6' value={registerData.name} onChange={(e) => handleChange(e, "register")} />
-                    </div>
-                    {errors.name && <p className="text-danger">{errors.name}</p>}
+            <div className={`lp-card${isActive ? " lp-card--active" : ""}`}>
 
-                    <div className='input-group mb-3'>
-                        <input type='email' name="email" placeholder='Email' className='form-control form-control-lg bg-light fs-6' value={registerData.email} onChange={(e) => handleChange(e, "register")} />
-                    </div>
-                    {errors.email && <p className="text-danger">{errors.email}</p>}
+                {/* ── Register Form ── */}
+                <div className="lp-form lp-form--register">
+                    <div className="lp-form-inner">
+                        <div className="lp-brand-dot" />
+                        <h2>Create Account</h2>
+                        <p className="lp-subtitle">Start your journey with TripPicker</p>
 
-                    <div className='input-group mb-3'>
-                        <input type='password' name="password" placeholder='Password' className='form-control form-control-lg bg-light fs-6' value={registerData.password} onChange={(e) => handleChange(e, "register")} />
-                    </div>
-                    {errors.password && <p className="text-danger">{errors.password}</p>}
+                        <form onSubmit={handleRegisterSubmit} noValidate>
+                            <div className="lp-field">
+                                <span className="lp-field__icon"><User size={16} /></span>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Full name"
+                                    className={`lp-input${errors.name ? " lp-input--error" : ""}`}
+                                    value={registerData.name}
+                                    onChange={(e) => handleChange(e, "register")}
+                                    autoComplete="name"
+                                />
+                                {errors.name && <span className="lp-err">{errors.name}</span>}
+                            </div>
 
-                    <div className='input-group mb-3 justify-content-center'>
-                        <button type="submit" className='btn border-white text-white w-50 fs-6'>Register</button>
-                    </div>
-                    {/* Message Display for Registration */}
-                    {registerMessage && <p className="text-center mt-3">{registerMessage}</p>}
-                </form>
-            </div>
+                            <div className="lp-field">
+                                <span className="lp-field__icon"><Mail size={16} /></span>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email address"
+                                    className={`lp-input${errors.email ? " lp-input--error" : ""}`}
+                                    value={registerData.email}
+                                    onChange={(e) => handleChange(e, "register")}
+                                    autoComplete="email"
+                                />
+                                {errors.email && <span className="lp-err">{errors.email}</span>}
+                            </div>
 
-            {/* Login Form */}
-            <div className='col-md-6 right-box'>
-                <form onSubmit={handleLoginSubmit}>
-                    <div className='header-text mb-4'>
-                        <h1>Sign In</h1>
-                    </div>
+                            <div className="lp-field">
+                                <span className="lp-field__icon"><Lock size={16} /></span>
+                                <input
+                                    type={showRegPw ? "text" : "password"}
+                                    name="password"
+                                    placeholder="Password (min. 6 characters)"
+                                    className={`lp-input lp-input--pw${errors.password ? " lp-input--error" : ""}`}
+                                    value={registerData.password}
+                                    onChange={(e) => handleChange(e, "register")}
+                                    autoComplete="new-password"
+                                />
+                                <button type="button" className="lp-eye" onClick={() => setShowRegPw(p => !p)} aria-label="Toggle password">
+                                    {showRegPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                                </button>
+                                {errors.password && <span className="lp-err">{errors.password}</span>}
+                            </div>
 
-                    <div className='input-group mb-3'>
-                        <input type='email' name="email" placeholder='Email' className='form-control form-control-lg bg-light fs-6' value={loginData.email} onChange={(e) => handleChange(e, "login")} />
-                    </div>
-                    {errors.loginEmail && <p className="text-danger">{errors.loginEmail}</p>}
+                            {registerMessage.text && (
+                                <p className={`lp-msg${registerMessage.ok ? " lp-msg--ok" : " lp-msg--err"}`}>
+                                    {registerMessage.text}
+                                </p>
+                            )}
 
-                    <div className='input-group mb-3'>
-                        <input type='password' name="password" placeholder='Password' className='form-control form-control-lg bg-light fs-6' value={loginData.password} onChange={(e) => handleChange(e, "login")} />
-                    </div>
-                    {errors.loginPassword && <p className="text-danger">{errors.loginPassword}</p>}
+                            <button type="submit" className="lp-btn" disabled={loading}>
+                                {loading ? "Creating account…" : <><span>Create Account</span><ArrowRight size={16} /></>}
+                            </button>
+                        </form>
 
-                    <div className='input-group mb-5 d-flex justify-content-between'>
-                        <div className='form-check'>
-                            <input type='checkbox' className='form-check-input' />
-                            <label htmlFor='formcheck' className='form-check-label text-secondary'><small>Remember me</small></label>
-                        </div>
-                        <div className='forgot'>
-                            <small><a href='/forgot-password'>Forgot password</a></small>
-                        </div>
-                    </div>
-
-                    <div className='input-group mb-3 justify-content-center'>
-                        <button type="submit" className='btn border-white text-white w-50 fs-6'>Login</button>
-                    </div>
-                    {/* Message Display for Login */}
-                    {loginMessage && <p className="text-center mt-3">{loginMessage}</p>}
-                </form>
-            </div>
-
-            {/* Switch Panel */}
-            <div className='switch-content'>
-                <div className='switch'>
-                    <div className='switch-panel switch-left'>
-                        <h1>Hello, Again</h1>
-                        <p>We are happy to see you back</p>
-                        <button className='hidden btn text-white w-50 fs-6' id='login' onClick={SwitchContent}>Login</button>
-                    </div>
-
-                    <div className='switch-panel switch-right'>
-                        <h1>Welcome</h1>
-                        <p>Join Our Unique Platform, Explore a New Experience</p>
-                        <button className='hidden btn border-white text-white w-50 fs-6' id='register' onClick={SwitchContent}>Register</button>
+                        <p className="lp-switch-hint">
+                            Already have an account?{" "}
+                            <button type="button" className="lp-switch-link" onClick={switchToLogin}>Sign in</button>
+                        </p>
                     </div>
                 </div>
-            </div>
 
-            
+                {/* ── Login Form ── */}
+                <div className="lp-form lp-form--login">
+                    <div className="lp-form-inner">
+                        <div className="lp-brand-dot" />
+                        <h2>Welcome Back</h2>
+                        <p className="lp-subtitle">Sign in to continue your adventure</p>
+
+                        <form onSubmit={handleLoginSubmit} noValidate>
+                            <div className="lp-field">
+                                <span className="lp-field__icon"><Mail size={16} /></span>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email address"
+                                    className={`lp-input${errors.loginEmail ? " lp-input--error" : ""}`}
+                                    value={loginData.email}
+                                    onChange={(e) => handleChange(e, "login")}
+                                    autoComplete="email"
+                                />
+                                {errors.loginEmail && <span className="lp-err">{errors.loginEmail}</span>}
+                            </div>
+
+                            <div className="lp-field">
+                                <span className="lp-field__icon"><Lock size={16} /></span>
+                                <input
+                                    type={showLoginPw ? "text" : "password"}
+                                    name="password"
+                                    placeholder="Password"
+                                    className={`lp-input lp-input--pw${errors.loginPassword ? " lp-input--error" : ""}`}
+                                    value={loginData.password}
+                                    onChange={(e) => handleChange(e, "login")}
+                                    autoComplete="current-password"
+                                />
+                                <button type="button" className="lp-eye" onClick={() => setShowLoginPw(p => !p)} aria-label="Toggle password">
+                                    {showLoginPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                                </button>
+                                {errors.loginPassword && <span className="lp-err">{errors.loginPassword}</span>}
+                            </div>
+
+                            <div className="lp-extras">
+                                <label className="lp-remember">
+                                    <input type="checkbox" />
+                                    <span>Remember me</span>
+                                </label>
+                                <Link to="/forgot-password" className="lp-forgot">Forgot password?</Link>
+                            </div>
+
+                            {loginMessage.text && (
+                                <p className={`lp-msg${loginMessage.ok ? " lp-msg--ok" : " lp-msg--err"}`}>
+                                    {loginMessage.text}
+                                </p>
+                            )}
+
+                            <button type="submit" className="lp-btn" disabled={loading}>
+                                {loading ? "Signing in…" : <><span>Sign In</span><ArrowRight size={16} /></>}
+                            </button>
+                        </form>
+
+                        <p className="lp-switch-hint">
+                            Don't have an account?{" "}
+                            <button type="button" className="lp-switch-link" onClick={switchToRegister}>Create one</button>
+                        </p>
+                    </div>
+                </div>
+
+                {/* ── Sliding overlay panel ── */}
+                <div className="lp-overlay">
+                    {/* Left side — shown when Register panel is active */}
+                    <div className="lp-overlay-panel lp-overlay-left">
+                        <div className="lp-overlay-inner">
+                            <h2>Welcome Back!</h2>
+                            <p>Already have an account? Sign in to pick up where you left off.</p>
+                            <button type="button" className="lp-ghost-btn" onClick={switchToLogin}>
+                                Sign In
+                            </button>
+                        </div>
+                    </div>
+                    {/* Right side — shown by default with login form */}
+                    <div className="lp-overlay-panel lp-overlay-right">
+                        <div className="lp-overlay-inner">
+                            <h2>New Here?</h2>
+                            <p>Join TripPicker and start discovering unforgettable travel experiences.</p>
+                            <button type="button" className="lp-ghost-btn" onClick={switchToRegister}>
+                                Create Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        </>
     );
 }
 

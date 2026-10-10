@@ -1,7 +1,15 @@
 /* Package Details Styling */
+
+/* Page wrapper — provides BackButton clearance */
+.package-details-page {
+  padding: 80px 20px 60px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
 .package-details-container {
     max-width: 1000px;
-    margin: 40px auto 80px;
+    margin: 0 auto;
     padding: 30px;
     background: var(--surface);
     border-radius: 20px;
@@ -25,7 +33,7 @@
     font-family: "Playfair Display", serif;
     font-size: 2.4rem;
     margin-bottom: 25px;
-    color: var(--dark-color, #333);
+    color: var(--text-heading);
     position: relative;
     padding-bottom: 15px;
   }
@@ -58,11 +66,11 @@
     font-size: 1.1rem;
     line-height: 1.7;
     margin-bottom: 20px;
-    color: var(--text-color, #666);
+    color: var(--text-body);
   }
   
   .package-details-container strong {
-    color: var(--dark-color, #333);
+    color: var(--text-heading);
     font-weight: 600;
   }
   
@@ -133,7 +141,7 @@
   .info-value {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--dark-color, #333);
+    color: var(--text-heading);
   }
   
   .package-description {
@@ -155,7 +163,7 @@
   
   .price-label {
     font-size: 1.2rem;
-    color: var(--dark-color, #333);
+    color: var(--text-heading);
     margin-right: 15px;
   }
   

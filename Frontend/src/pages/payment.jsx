@@ -256,18 +256,22 @@ const Payment = () => {
 
   if (loading) {
     return (
-      <div className="payment-container">
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <p>Loading tour details...</p>
+      <div className="payment-page">
+        <BackButton />
+        <div className="payment-container">
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Loading tour details...</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="payment-container">
+    <div className="payment-page">
       <BackButton />
+      <div className="payment-container">
       <div className="decoration decoration-1"></div>
       <div className="decoration decoration-2"></div>
 
@@ -331,6 +335,7 @@ const Payment = () => {
       <button onClick={handlePayment} disabled={!scriptLoaded || isGeneratingPDF || loading}>
         {isGeneratingPDF ? "Processing..." : scriptLoaded ? "Proceed to Payment" : "Loading Payment..."}
       </button>
+      </div>
     </div>
   );
 };

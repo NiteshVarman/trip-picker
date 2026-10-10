@@ -1,17 +1,13 @@
 /* Bookings Page Styling — inherits design tokens from index.css */
 .bookings-container {
-  --box-shadow: var(--shadow-md);
-  --border-radius: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 20px 80px;
+  position: relative;
+  background: transparent;
+  box-shadow: none;
+  min-height: 100vh;
 }
-  
-  .bookings-container {
-    max-width: 900px;
-    margin: 40px auto 80px;
-    padding: 0;
-    position: relative;
-    background: transparent;
-    box-shadow: none;
-  }
   
   /* Header Styling */
   .bookings-header {
@@ -463,8 +459,7 @@
   /* Responsive Styles */
   @media (max-width: 768px) {
     .bookings-container {
-      margin: 20px auto 60px;
-      padding: 0 15px;
+      padding: 72px 15px 60px;
     }
     
     .bookings-header {
@@ -514,9 +509,8 @@
   }
 
 /* ── Dark theme overrides ── */
-body.dark-theme {
-  background-color: var(--bg);
-  color: var(--text-body);
+body.dark-theme .bookings-container {
+  background: transparent;
 }
 
 body.dark-theme .bookings-header {

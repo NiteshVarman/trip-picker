@@ -45,28 +45,35 @@ const PackageDetails = () => {
 
     if (loading) {
         return (
-            <div className="package-details-container" style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div className="loading-spinner"></div>
-                <p style={{ marginLeft: "15px" }}>Loading package details...</p>
+            <div className="package-details-page">
+                <BackButton />
+                <div className="package-details-container" style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div className="loading-spinner"></div>
+                    <p style={{ marginLeft: "15px" }}>Loading package details...</p>
+                </div>
             </div>
         );
     }
 
     if (!packageDetails) {
         return (
-            <div className="package-details-container" style={{ textAlign: "center", padding: "50px 20px" }}>
-                <h2>Package Not Found</h2>
-                <p>We couldn't find the package you're looking for.</p>
-                <button onClick={() => navigate("/packages")}>
-                    Browse All Packages
-                </button>
+            <div className="package-details-page">
+                <BackButton />
+                <div className="package-details-container" style={{ textAlign: "center", padding: "50px 20px" }}>
+                    <h2>Package Not Found</h2>
+                    <p>We couldn't find the package you're looking for.</p>
+                    <button onClick={() => navigate("/packages")}>
+                        Browse All Packages
+                    </button>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="package-details-container">
+        <div className="package-details-page">
             <BackButton />
+            <div className="package-details-container">
             <h2>{packageDetails.title}</h2>
 
             <img 
@@ -126,6 +133,7 @@ const PackageDetails = () => {
             <button onClick={() => navigate(`/payment/${encodeURIComponent(packageDetails.title)}`, { state: packageDetails })}>
                 Book Now
             </button>
+            </div>
         </div>
     );
 };

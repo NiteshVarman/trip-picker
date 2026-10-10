@@ -3,15 +3,21 @@
 
 .payment-container {
   max-width: 800px;
-  margin: 100px auto 50px;
+  margin: 0 auto;
   padding: 40px;
   background: var(--surface);
   box-shadow: var(--shadow-md);
   border-radius: 20px;
-  transition: var(--transition);
   font-family: "Poppins", sans-serif;
   position: relative;
   overflow: hidden;
+}
+
+/* Page-level wrapper to handle top spacing for BackButton */
+.payment-page {
+  padding: 80px 20px 60px;
+  min-height: 100vh;
+  background: var(--bg);
 }
 
 .payment-container::before {
@@ -21,12 +27,7 @@
   left: 0;
   width: 100%;
   height: 8px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-}
-
-.payment-container:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  transform: translateY(-5px);
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 /* Title */
@@ -289,6 +290,10 @@
 }
 
 /* ── Dark theme overrides ── */
+body.dark-theme .payment-page {
+  background: var(--bg);
+}
+
 body.dark-theme .payment-container {
   background: var(--surface);
   box-shadow: var(--shadow-lg);
