@@ -1,6 +1,7 @@
 /* ══════════════════════════════════════════════════════
    Login / Register Page  —  lp-* namespace
-   Zero Bootstrap dependency. Inherits tokens from index.css
+   Tab-based architecture. Zero Bootstrap dependency.
+   Inherits all tokens from index.css
    ══════════════════════════════════════════════════════ */
 
 /* ── Page wrapper ── */
@@ -10,102 +11,108 @@
   align-items: center;
   justify-content: center;
   background: var(--bg);
-  padding: 24px 16px;
+  padding: 80px 16px 32px; /* top: account for fixed BackButton */
   font-family: "Poppins", system-ui, sans-serif;
   transition: background 0.3s ease;
 }
 
 /* ── Card shell ── */
 .lp-card {
-  position: relative;
   background: var(--surface);
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  width: 860px;
-  max-width: 100%;
-  display: flex;
-  min-height: 560px;
+  width: 100%;
+  max-width: 460px;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ── Form halves ── */
-/* Both forms fill the full card; the active one is visible */
-.lp-form {
-  position: absolute;
-  inset: 0;
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-/* Login lives on the RIGHT half */
-.lp-form--login {
-  left: auto;
-  right: 0;
-  z-index: 2;
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
-
-/* Register lives on the LEFT half — hidden by default */
-.lp-form--register {
-  left: 0;
-  right: auto;
-  z-index: 1;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-16px);
-}
-
-/* active = register panel shown */
-.lp-card--active .lp-form--register {
-  z-index: 5;
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0);
-}
-
-.lp-card--active .lp-form--login {
-  z-index: 1;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(16px);
-}
-
-/* ── Inner padding ── */
-.lp-form-inner {
-  width: 100%;
-  max-width: 320px;
-  padding: 44px 32px;
-}
-
-/* ── Brand accent dot above heading ── */
-.lp-brand-dot {
-  width: 36px;
+/* ── Top accent bar ── */
+.lp-accent-bar {
   height: 5px;
-  border-radius: 9999px;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
-  margin-bottom: 20px;
 }
 
-/* ── Headings ── */
-.lp-form-inner h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 1.9rem;
+/* ── Brand mark ── */
+.lp-brand {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+  padding: 28px 32px 0;
+}
+
+.lp-brand__travel {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-heading);
-  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.lp-brand__explorer {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  font-style: italic;
+  letter-spacing: -0.5px;
+}
+
+/* ── Tab switcher ── */
+.lp-tabs {
+  display: flex;
+  margin: 20px 32px 0;
+  background: var(--surface-muted);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  gap: 4px;
+}
+
+.lp-tab {
+  flex: 1;
+  padding: 9px 14px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--radius-sm) - 2px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lp-tab--active {
+  background: var(--surface);
+  color: var(--text-heading);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.lp-tab:hover:not(.lp-tab--active) {
+  color: var(--text-body);
+}
+
+/* ── Panel content area ── */
+.lp-panel {
+  padding: 24px 32px 32px;
+}
+
+/* ── Heading inside panel ── */
+.lp-heading {
+  font-family: "Playfair Display", serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 4px;
   line-height: 1.2;
 }
 
 .lp-subtitle {
   font-size: 0.875rem;
   color: var(--text-muted);
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   line-height: 1.5;
 }
 
@@ -115,28 +122,36 @@
   margin-bottom: 16px;
 }
 
+.lp-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-body);
+  margin-bottom: 5px;
+  letter-spacing: 0.01em;
+}
+
+/* ── Input wrapper (icon + input) ── */
+.lp-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .lp-field__icon {
   position: absolute;
   left: 13px;
-  top: 50%;
-  transform: translateY(-50%);
   color: var(--text-muted);
   display: flex;
   align-items: center;
   pointer-events: none;
-  /* nudge up if error text is present */
-}
-
-/* When error exists, icon should stay centred on the input not the wrapper */
-.lp-field:has(.lp-err) .lp-field__icon {
-  top: 22px;
-  transform: none;
+  z-index: 1;
 }
 
 /* ── Input ── */
 .lp-input {
   width: 100%;
-  padding: 12px 14px 12px 38px;
+  padding: 11px 14px 11px 38px;
   background: var(--surface-muted);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
@@ -176,7 +191,6 @@
 .lp-eye {
   position: absolute;
   right: 11px;
-  top: 13px;
   background: none;
   border: none;
   padding: 0;
@@ -192,7 +206,7 @@
   color: var(--primary);
 }
 
-/* ── Inline error ── */
+/* ── Inline error text ── */
 .lp-err {
   display: block;
   font-size: 0.77rem;
@@ -206,8 +220,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
-  margin-top: 4px;
+  margin-bottom: 18px;
+  margin-top: 6px;
 }
 
 .lp-remember {
@@ -240,7 +254,7 @@
   text-decoration: underline;
 }
 
-/* ── Message banner (success / error) ── */
+/* ── Message banner ── */
 .lp-msg {
   font-size: 0.82rem;
   font-weight: 500;
@@ -296,12 +310,12 @@
   cursor: not-allowed;
 }
 
-/* ── Switch hint below form ── */
+/* ── Switch hint ── */
 .lp-switch-hint {
   text-align: center;
   font-size: 0.82rem;
   color: var(--text-muted);
-  margin-top: 22px;
+  margin-top: 20px;
 }
 
 .lp-switch-link {
@@ -321,170 +335,34 @@
   text-decoration: underline;
 }
 
-/* ═══════════════════════════════════════════════════════
-   Sliding overlay panel (the branded coloured half)
-   ═══════════════════════════════════════════════════════ */
-.lp-overlay {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 100;
-  border-radius: 0 24px 24px 0;
-  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1),
-              border-radius 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-}
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .lp-page {
+    padding: 70px 12px 24px;
+  }
 
-.lp-card--active .lp-overlay {
-  transform: translateX(-100%);
-  border-radius: 24px 0 0 24px;
-}
-
-/* Gradient background that spans 200% so we can slide it */
-.lp-overlay::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 60%, #ffca8a 100%);
-  transition: background 0.3s ease;
-}
-
-/* Subtle pattern overlay for visual depth */
-.lp-overlay::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.12) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%);
-}
-
-/* ── Overlay panels ── */
-.lp-overlay-panel {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-.lp-overlay-left {
-  transform: translateX(-100%);
-}
-
-.lp-card--active .lp-overlay-left {
-  transform: translateX(0);
-}
-
-.lp-overlay-right {
-  transform: translateX(0);
-}
-
-.lp-card--active .lp-overlay-right {
-  transform: translateX(100%);
-}
-
-.lp-overlay-inner {
-  text-align: center;
-  padding: 40px 36px;
-  max-width: 300px;
-  position: relative;
-  z-index: 2;
-}
-
-.lp-overlay-inner h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 12px;
-  line-height: 1.2;
-}
-
-.lp-overlay-inner p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.88);
-  line-height: 1.65;
-  margin-bottom: 28px;
-}
-
-/* ── Ghost button on overlay panel ── */
-.lp-ghost-btn {
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  color: #fff;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  padding: 11px 32px;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.lp-ghost-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  transform: translateY(-2px);
-}
-
-/* ═══════════════════════════════════════════════════════
-   Responsive — stack vertically on small screens
-   ═══════════════════════════════════════════════════════ */
-@media (max-width: 640px) {
   .lp-card {
-    display: block;
-    min-height: unset;
-    width: 100%;
-    max-width: 440px;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
   }
 
-  /* On mobile hide the sliding overlay — use inline switch links */
-  .lp-overlay {
-    display: none;
+  .lp-brand {
+    padding: 20px 20px 0;
   }
 
-  .lp-form {
-    position: relative;
-    inset: unset;
-    width: 100%;
-    height: auto;
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none;
-    pointer-events: auto !important;
+  .lp-tabs {
+    margin: 16px 20px 0;
   }
 
-  .lp-form--login {
-    display: flex;
-  }
-
-  .lp-form--register {
-    display: none;
-  }
-
-  .lp-card--active .lp-form--register {
-    display: flex;
-  }
-
-  .lp-card--active .lp-form--login {
-    display: none;
-  }
-
-  .lp-form-inner {
-    padding: 36px 24px;
+  .lp-panel {
+    padding: 20px 20px 28px;
   }
 }
 
-/* ═══════════════════════════════════════════════════════
-   Dark theme overrides
-   ═══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   Dark theme overrides — all tokens auto-flip via body.dark-theme
+   Only overrides that can't be covered by tokens alone
+   ══════════════════════════════════════════════════════ */
+
 body.dark-theme .lp-page {
   background: var(--bg);
 }
@@ -494,12 +372,34 @@ body.dark-theme .lp-card {
   box-shadow: var(--shadow-lg);
 }
 
-body.dark-theme .lp-form-inner h2 {
+body.dark-theme .lp-brand__travel {
+  color: var(--text-heading);
+}
+
+body.dark-theme .lp-tabs {
+  background: var(--surface-muted);
+}
+
+body.dark-theme .lp-tab {
+  color: var(--text-muted);
+}
+
+body.dark-theme .lp-tab--active {
+  background: var(--surface-alt);
+  color: var(--text-heading);
+  box-shadow: var(--shadow-sm);
+}
+
+body.dark-theme .lp-heading {
   color: var(--text-heading);
 }
 
 body.dark-theme .lp-subtitle {
   color: var(--text-muted);
+}
+
+body.dark-theme .lp-label {
+  color: var(--text-body);
 }
 
 body.dark-theme .lp-input {
@@ -510,6 +410,7 @@ body.dark-theme .lp-input {
 
 body.dark-theme .lp-input:focus {
   background: var(--surface-alt);
+  border-color: var(--primary);
 }
 
 body.dark-theme .lp-input::placeholder {
@@ -528,10 +429,6 @@ body.dark-theme .lp-remember {
   color: var(--text-muted);
 }
 
-body.dark-theme .lp-switch-hint {
-  color: var(--text-muted);
-}
-
 body.dark-theme .lp-extras {
   color: var(--text-muted);
 }
@@ -540,8 +437,12 @@ body.dark-theme .lp-forgot {
   color: var(--primary);
 }
 
+body.dark-theme .lp-switch-hint {
+  color: var(--text-muted);
+}
+
 body.dark-theme .lp-err {
-  color: #f87171; /* lighter red for dark bg */
+  color: #f87171;
 }
 
 body.dark-theme .lp-msg--ok {

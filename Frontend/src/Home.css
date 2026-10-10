@@ -137,7 +137,7 @@ body.dark-theme .footer {
   text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.dark-theme .parallax-text {
+body.dark-theme .parallax-text {
   color: var(--primary-light);
   text-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }

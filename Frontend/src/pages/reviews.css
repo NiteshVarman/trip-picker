@@ -722,3 +722,141 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
+/* ══════════════════════════════════════════════════════
+   Dark theme overrides — reviews page
+   ══════════════════════════════════════════════════════ */
+
+body.dark-theme .reviews-container {
+  background: var(--bg);
+  color: var(--text-body);
+}
+
+body.dark-theme .reviews-container h2 {
+  color: var(--text-heading);
+}
+
+body.dark-theme .review-form {
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+body.dark-theme .review-form h3 {
+  color: var(--text-heading);
+}
+
+body.dark-theme .form-group label {
+  color: var(--text-body);
+}
+
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea,
+body.dark-theme .form-group select {
+  background-color: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--text-heading);
+}
+
+body.dark-theme .form-group input:focus,
+body.dark-theme .form-group textarea:focus,
+body.dark-theme .form-group select:focus {
+  background-color: var(--surface-alt);
+  border-color: var(--primary);
+}
+
+body.dark-theme .file-upload-label {
+  background: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+body.dark-theme .file-upload-label:hover {
+  background: var(--surface-alt);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+body.dark-theme .review-card {
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+body.dark-theme .review-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+body.dark-theme .reviewer-name {
+  color: var(--text-heading);
+}
+
+body.dark-theme .review-date {
+  color: var(--text-muted);
+}
+
+body.dark-theme .review-content {
+  color: var(--text-body);
+}
+
+body.dark-theme .responses-section {
+  background: var(--surface-muted);
+  border-color: var(--border);
+}
+
+body.dark-theme .responses-title {
+  color: var(--text-heading);
+}
+
+body.dark-theme .response-item {
+  border-bottom-color: var(--border);
+}
+
+body.dark-theme .response-name {
+  color: var(--text-heading);
+}
+
+body.dark-theme .response-content {
+  color: var(--text-body);
+}
+
+body.dark-theme .response-inputs input {
+  background: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--text-heading);
+}
+
+body.dark-theme .response-inputs input:focus {
+  background: var(--surface);
+  border-color: var(--primary);
+}
+
+body.dark-theme .upvote-button {
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+body.dark-theme .upvote-button:hover {
+  background: var(--surface-alt);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+body.dark-theme .empty-state {
+  background: var(--surface);
+}
+
+body.dark-theme .empty-state h3 {
+  color: var(--text-heading);
+}
+
+body.dark-theme .empty-state p {
+  color: var(--text-muted);
+}
+
+body.dark-theme .photo-modal {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+body.dark-theme .modal-content {
+  background: var(--surface);
+}

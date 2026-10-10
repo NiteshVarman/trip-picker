@@ -6,6 +6,7 @@ import "./login.css";
 import BackButton from "../components/BackButton";
 
 function Login() {
+    const [tab, setTab] = useState("login"); // "login" | "register"
     const [registerData, setRegisterData] = useState({ name: "", email: "", password: "" });
     const [loginData, setLoginData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
@@ -13,7 +14,6 @@ function Login() {
     const [loginMessage, setLoginMessage] = useState({ text: "", ok: false });
     const [showRegPw, setShowRegPw] = useState(false);
     const [showLoginPw, setShowLoginPw] = useState(false);
-    const [isActive, setIsActive] = useState(false);
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -100,131 +100,93 @@ function Login() {
         }
     };
 
-    const switchToRegister = () => {
-        setIsActive(true);
+    const switchTab = (newTab) => {
+        setTab(newTab);
+        setErrors({});
         setLoginMessage({ text: "", ok: false });
-        setErrors({});
-    };
-
-    const switchToLogin = () => {
-        setIsActive(false);
         setRegisterMessage({ text: "", ok: false });
-        setErrors({});
     };
 
     return (
         <div className="lp-page">
             <BackButton to="/" />
 
-            <div className={`lp-card${isActive ? " lp-card--active" : ""}`}>
+            <div className="lp-card">
+                {/* ── Top accent bar ── */}
+                <div className="lp-accent-bar" />
 
-                {/* ── Register Form ── */}
-                <div className="lp-form lp-form--register">
-                    <div className="lp-form-inner">
-                        <div className="lp-brand-dot" />
-                        <h2>Create Account</h2>
-                        <p className="lp-subtitle">Start your journey with TripPicker</p>
-
-                        <form onSubmit={handleRegisterSubmit} noValidate>
-                            <div className="lp-field">
-                                <span className="lp-field__icon"><User size={16} /></span>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    placeholder="Full name"
-                                    className={`lp-input${errors.name ? " lp-input--error" : ""}`}
-                                    value={registerData.name}
-                                    onChange={(e) => handleChange(e, "register")}
-                                    autoComplete="name"
-                                />
-                                {errors.name && <span className="lp-err">{errors.name}</span>}
-                            </div>
-
-                            <div className="lp-field">
-                                <span className="lp-field__icon"><Mail size={16} /></span>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email address"
-                                    className={`lp-input${errors.email ? " lp-input--error" : ""}`}
-                                    value={registerData.email}
-                                    onChange={(e) => handleChange(e, "register")}
-                                    autoComplete="email"
-                                />
-                                {errors.email && <span className="lp-err">{errors.email}</span>}
-                            </div>
-
-                            <div className="lp-field">
-                                <span className="lp-field__icon"><Lock size={16} /></span>
-                                <input
-                                    type={showRegPw ? "text" : "password"}
-                                    name="password"
-                                    placeholder="Password (min. 6 characters)"
-                                    className={`lp-input lp-input--pw${errors.password ? " lp-input--error" : ""}`}
-                                    value={registerData.password}
-                                    onChange={(e) => handleChange(e, "register")}
-                                    autoComplete="new-password"
-                                />
-                                <button type="button" className="lp-eye" onClick={() => setShowRegPw(p => !p)} aria-label="Toggle password">
-                                    {showRegPw ? <EyeOff size={15} /> : <Eye size={15} />}
-                                </button>
-                                {errors.password && <span className="lp-err">{errors.password}</span>}
-                            </div>
-
-                            {registerMessage.text && (
-                                <p className={`lp-msg${registerMessage.ok ? " lp-msg--ok" : " lp-msg--err"}`}>
-                                    {registerMessage.text}
-                                </p>
-                            )}
-
-                            <button type="submit" className="lp-btn" disabled={loading}>
-                                {loading ? "Creating account…" : <><span>Create Account</span><ArrowRight size={16} /></>}
-                            </button>
-                        </form>
-
-                        <p className="lp-switch-hint">
-                            Already have an account?{" "}
-                            <button type="button" className="lp-switch-link" onClick={switchToLogin}>Sign in</button>
-                        </p>
-                    </div>
+                {/* ── Brand mark ── */}
+                <div className="lp-brand">
+                    <span className="lp-brand__travel">Travel</span>
+                    <span className="lp-brand__explorer">Explorer</span>
                 </div>
 
-                {/* ── Login Form ── */}
-                <div className="lp-form lp-form--login">
-                    <div className="lp-form-inner">
-                        <div className="lp-brand-dot" />
-                        <h2>Welcome Back</h2>
+                {/* ── Tab switcher ── */}
+                <div className="lp-tabs" role="tablist">
+                    <button
+                        role="tab"
+                        aria-selected={tab === "login"}
+                        className={`lp-tab${tab === "login" ? " lp-tab--active" : ""}`}
+                        onClick={() => switchTab("login")}
+                        type="button"
+                    >
+                        Sign In
+                    </button>
+                    <button
+                        role="tab"
+                        aria-selected={tab === "register"}
+                        className={`lp-tab${tab === "register" ? " lp-tab--active" : ""}`}
+                        onClick={() => switchTab("register")}
+                        type="button"
+                    >
+                        Create Account
+                    </button>
+                </div>
+
+                {/* ── Login Panel ── */}
+                {tab === "login" && (
+                    <div className="lp-panel">
+                        <h2 className="lp-heading">Welcome Back</h2>
                         <p className="lp-subtitle">Sign in to continue your adventure</p>
 
                         <form onSubmit={handleLoginSubmit} noValidate>
                             <div className="lp-field">
-                                <span className="lp-field__icon"><Mail size={16} /></span>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email address"
-                                    className={`lp-input${errors.loginEmail ? " lp-input--error" : ""}`}
-                                    value={loginData.email}
-                                    onChange={(e) => handleChange(e, "login")}
-                                    autoComplete="email"
-                                />
+                                <label className="lp-label" htmlFor="l-email">Email address</label>
+                                <div className="lp-input-wrap">
+                                    <span className="lp-field__icon"><Mail size={16} /></span>
+                                    <input
+                                        id="l-email"
+                                        type="email"
+                                        name="email"
+                                        placeholder="you@example.com"
+                                        className={`lp-input${errors.loginEmail ? " lp-input--error" : ""}`}
+                                        value={loginData.email}
+                                        onChange={(e) => handleChange(e, "login")}
+                                        autoComplete="email"
+                                        autoFocus
+                                    />
+                                </div>
                                 {errors.loginEmail && <span className="lp-err">{errors.loginEmail}</span>}
                             </div>
 
                             <div className="lp-field">
-                                <span className="lp-field__icon"><Lock size={16} /></span>
-                                <input
-                                    type={showLoginPw ? "text" : "password"}
-                                    name="password"
-                                    placeholder="Password"
-                                    className={`lp-input lp-input--pw${errors.loginPassword ? " lp-input--error" : ""}`}
-                                    value={loginData.password}
-                                    onChange={(e) => handleChange(e, "login")}
-                                    autoComplete="current-password"
-                                />
-                                <button type="button" className="lp-eye" onClick={() => setShowLoginPw(p => !p)} aria-label="Toggle password">
-                                    {showLoginPw ? <EyeOff size={15} /> : <Eye size={15} />}
-                                </button>
+                                <label className="lp-label" htmlFor="l-pw">Password</label>
+                                <div className="lp-input-wrap">
+                                    <span className="lp-field__icon"><Lock size={16} /></span>
+                                    <input
+                                        id="l-pw"
+                                        type={showLoginPw ? "text" : "password"}
+                                        name="password"
+                                        placeholder="Your password"
+                                        className={`lp-input lp-input--pw${errors.loginPassword ? " lp-input--error" : ""}`}
+                                        value={loginData.password}
+                                        onChange={(e) => handleChange(e, "login")}
+                                        autoComplete="current-password"
+                                    />
+                                    <button type="button" className="lp-eye" onClick={() => setShowLoginPw(p => !p)} aria-label="Toggle password visibility">
+                                        {showLoginPw ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
                                 {errors.loginPassword && <span className="lp-err">{errors.loginPassword}</span>}
                             </div>
 
@@ -237,9 +199,9 @@ function Login() {
                             </div>
 
                             {loginMessage.text && (
-                                <p className={`lp-msg${loginMessage.ok ? " lp-msg--ok" : " lp-msg--err"}`}>
+                                <div className={`lp-msg ${loginMessage.ok ? "lp-msg--ok" : "lp-msg--err"}`}>
                                     {loginMessage.text}
-                                </p>
+                                </div>
                             )}
 
                             <button type="submit" className="lp-btn" disabled={loading}>
@@ -249,35 +211,97 @@ function Login() {
 
                         <p className="lp-switch-hint">
                             Don't have an account?{" "}
-                            <button type="button" className="lp-switch-link" onClick={switchToRegister}>Create one</button>
+                            <button type="button" className="lp-switch-link" onClick={() => switchTab("register")}>
+                                Create one
+                            </button>
                         </p>
                     </div>
-                </div>
+                )}
 
-                {/* ── Sliding overlay panel ── */}
-                <div className="lp-overlay">
-                    {/* Left side — shown when Register panel is active */}
-                    <div className="lp-overlay-panel lp-overlay-left">
-                        <div className="lp-overlay-inner">
-                            <h2>Welcome Back!</h2>
-                            <p>Already have an account? Sign in to pick up where you left off.</p>
-                            <button type="button" className="lp-ghost-btn" onClick={switchToLogin}>
-                                Sign In
-                            </button>
-                        </div>
-                    </div>
-                    {/* Right side — shown by default with login form */}
-                    <div className="lp-overlay-panel lp-overlay-right">
-                        <div className="lp-overlay-inner">
-                            <h2>New Here?</h2>
-                            <p>Join TripPicker and start discovering unforgettable travel experiences.</p>
-                            <button type="button" className="lp-ghost-btn" onClick={switchToRegister}>
-                                Create Account
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {/* ── Register Panel ── */}
+                {tab === "register" && (
+                    <div className="lp-panel">
+                        <h2 className="lp-heading">Create Account</h2>
+                        <p className="lp-subtitle">Start your journey with TripPicker</p>
 
+                        <form onSubmit={handleRegisterSubmit} noValidate>
+                            <div className="lp-field">
+                                <label className="lp-label" htmlFor="r-name">Full name</label>
+                                <div className="lp-input-wrap">
+                                    <span className="lp-field__icon"><User size={16} /></span>
+                                    <input
+                                        id="r-name"
+                                        type="text"
+                                        name="name"
+                                        placeholder="Your full name"
+                                        className={`lp-input${errors.name ? " lp-input--error" : ""}`}
+                                        value={registerData.name}
+                                        onChange={(e) => handleChange(e, "register")}
+                                        autoComplete="name"
+                                        autoFocus
+                                    />
+                                </div>
+                                {errors.name && <span className="lp-err">{errors.name}</span>}
+                            </div>
+
+                            <div className="lp-field">
+                                <label className="lp-label" htmlFor="r-email">Email address</label>
+                                <div className="lp-input-wrap">
+                                    <span className="lp-field__icon"><Mail size={16} /></span>
+                                    <input
+                                        id="r-email"
+                                        type="email"
+                                        name="email"
+                                        placeholder="you@example.com"
+                                        className={`lp-input${errors.email ? " lp-input--error" : ""}`}
+                                        value={registerData.email}
+                                        onChange={(e) => handleChange(e, "register")}
+                                        autoComplete="email"
+                                    />
+                                </div>
+                                {errors.email && <span className="lp-err">{errors.email}</span>}
+                            </div>
+
+                            <div className="lp-field">
+                                <label className="lp-label" htmlFor="r-pw">Password</label>
+                                <div className="lp-input-wrap">
+                                    <span className="lp-field__icon"><Lock size={16} /></span>
+                                    <input
+                                        id="r-pw"
+                                        type={showRegPw ? "text" : "password"}
+                                        name="password"
+                                        placeholder="Minimum 6 characters"
+                                        className={`lp-input lp-input--pw${errors.password ? " lp-input--error" : ""}`}
+                                        value={registerData.password}
+                                        onChange={(e) => handleChange(e, "register")}
+                                        autoComplete="new-password"
+                                    />
+                                    <button type="button" className="lp-eye" onClick={() => setShowRegPw(p => !p)} aria-label="Toggle password visibility">
+                                        {showRegPw ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
+                                {errors.password && <span className="lp-err">{errors.password}</span>}
+                            </div>
+
+                            {registerMessage.text && (
+                                <div className={`lp-msg ${registerMessage.ok ? "lp-msg--ok" : "lp-msg--err"}`}>
+                                    {registerMessage.text}
+                                </div>
+                            )}
+
+                            <button type="submit" className="lp-btn" disabled={loading}>
+                                {loading ? "Creating account…" : <><span>Create Account</span><ArrowRight size={16} /></>}
+                            </button>
+                        </form>
+
+                        <p className="lp-switch-hint">
+                            Already have an account?{" "}
+                            <button type="button" className="lp-switch-link" onClick={() => switchTab("login")}>
+                                Sign in
+                            </button>
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );

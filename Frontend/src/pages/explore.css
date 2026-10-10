@@ -619,3 +619,39 @@ body.dark-theme .empty-results h3 {
 body.dark-theme .empty-results p {
   color: var(--text-muted);
 }
+
+body.dark-theme .place-details {
+  color: var(--text-muted);
+}
+
+body.dark-theme .detail-badge {
+  background: var(--surface-muted);
+  color: var(--text-body);
+  border-color: var(--border);
+}
+
+body.dark-theme .rating {
+  color: var(--text-muted);
+}
+
+body.dark-theme .view-details {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+}
+
+body.dark-theme .view-details:hover {
+  opacity: 0.9;
+  box-shadow: 0 6px 16px rgba(255, 158, 125, 0.35);
+}
+
+body.dark-theme .not-found {
+  color: var(--text-muted);
+}
+
+body.dark-theme .loading {
+  color: var(--text-muted);
+}
+
+body.dark-theme .explore-subtitle {
+  color: var(--text-muted);
+}

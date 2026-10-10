@@ -609,3 +609,15 @@ body.dark-theme .cancel-modal-button {
   background: var(--surface-muted);
   color: var(--text-body);
 }
+
+body.dark-theme .modal-title {
+  color: var(--text-heading);
+}
+
+body.dark-theme .modal-body {
+  color: var(--text-body);
+}
+
+body.dark-theme .modal-overlay {
+  background: rgba(0, 0, 0, 0.65);
+}
