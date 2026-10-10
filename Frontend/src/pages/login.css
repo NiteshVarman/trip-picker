@@ -24,12 +24,22 @@
   overflow: hidden;
   width: 860px;
   max-width: 100%;
-  min-height: 540px;
-  display: flex;
+  /* height is driven by the form content via the spacer */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ── Form halves ── */
+/* Invisible spacer that keeps the card tall enough for form content */
+.lp-card::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1;
+  min-height: 540px;
+  pointer-events: none;
+}
+
+/* ── Form halves — stack on the grid ── */
 .lp-form {
   position: absolute;
   top: 0;
@@ -52,6 +62,7 @@
   left: 0;
   z-index: 1;
   opacity: 0;
+  pointer-events: none;
   transform: translateX(-20px);
 }
 
@@ -59,12 +70,14 @@
 .lp-card--active .lp-form--register {
   z-index: 2;
   opacity: 1;
+  pointer-events: auto;
   transform: translateX(0);
 }
 
 .lp-card--active .lp-form--login {
   z-index: 1;
   opacity: 0;
+  pointer-events: none;
   transform: translateX(20px);
 }
 
@@ -430,11 +443,15 @@
    ═══════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
   .lp-card {
-    flex-direction: column;
-    min-height: unset;
+    display: block;
     width: 100%;
     max-width: 420px;
     border-radius: var(--radius-lg);
+  }
+
+  /* hide spacer on mobile */
+  .lp-card::before {
+    display: none;
   }
 
   /* On mobile we hide the overlay and show forms sequentially */
@@ -449,6 +466,7 @@
     opacity: 1;
     transform: none;
     transition: none;
+    pointer-events: auto;
   }
 
   .lp-form--login {
@@ -463,6 +481,7 @@
     display: flex;
     opacity: 1;
     transform: none;
+    pointer-events: auto;
   }
 
   .lp-card--active .lp-form--login {
@@ -522,4 +541,28 @@ body.dark-theme .lp-remember {
 
 body.dark-theme .lp-switch-hint {
   color: var(--text-muted);
+}
+
+body.dark-theme .lp-extras {
+  color: var(--text-muted);
+}
+
+body.dark-theme .lp-forgot {
+  color: var(--primary);
+}
+
+body.dark-theme .lp-err {
+  color: #f87171; /* lighter red for dark bg */
+}
+
+body.dark-theme .lp-msg--ok {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.2);
+}
+
+body.dark-theme .lp-msg--err {
+  background: rgba(220, 38, 38, 0.12);
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.2);
 }

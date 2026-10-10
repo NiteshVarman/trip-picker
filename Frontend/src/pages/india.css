@@ -1,81 +1,120 @@
+/* ── India map page ── */
+.india-page {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px 60px;
+  box-sizing: border-box;
+}
+
+/* ── Page heading ── */
+.india-page h1 {
+  color: var(--text-heading);
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.india-page h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+/* ── Responsive SVG map ── */
 #map {
-    width: 900px;
-    height: 700px;
+  width: 100%;
+  max-width: 860px;
+  height: auto;
+  display: block;
+  overflow: visible;
 }
 
 /* ── State paths ── */
 #map .state {
-    fill: white;
-    stroke: #8a8a8a;
-    stroke-width: 1;
-    transition: fill 0.15s ease;
-    cursor: pointer;
+  fill: var(--surface);
+  stroke: var(--border);
+  stroke-width: 1;
+  transition: fill 0.15s ease;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.06));
 }
 
 #map .state:hover {
-    fill: #ffc107;
+  fill: #ffc107;
+  filter: drop-shadow(0 2px 8px rgba(255, 193, 7, 0.4));
 }
 
 #map .tn {
-    fill: #ddd;
-    stroke: #8a8a8a;
-    stroke-width: 1;
-    transition: fill 0.15s ease;
-    cursor: pointer;
+  fill: var(--surface-muted);
+  stroke: var(--border);
+  stroke-width: 1;
+  transition: fill 0.15s ease;
+  cursor: pointer;
 }
 
 #map .tn:hover {
-    fill: #ffc107;
+  fill: #ffc107;
+  filter: drop-shadow(0 2px 8px rgba(255, 193, 7, 0.4));
 }
 
 /* ── State name label ── */
 #map .state-name {
-    fill: #1a1a1a;
-    stroke: rgba(255, 255, 255, 0.7);
-    stroke-width: 3px;
-    paint-order: stroke fill;
-    font-family: "Poppins", Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    pointer-events: none;
-    display: none;
+  fill: #1a1a1a;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 3px;
+  paint-order: stroke fill;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+  display: none;
 }
 
 #map .state:hover .state-name,
 #map .tn:hover .state-name {
-    display: block;
-}
-
-/* ── Page heading ── */
-h1 {
-    color: var(--text-heading, #000);
-    font-family: "Playfair Display", serif;
-    font-size: 40px;
-    text-align: center;
-    margin-top: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: block;
 }
 
 /* ── Dark theme overrides ── */
+body.dark-theme .india-page {
+  background: var(--bg);
+}
+
+body.dark-theme .india-page h1 {
+  color: var(--text-heading);
+}
+
 body.dark-theme #map .state {
-    fill: var(--surface-alt);
-    stroke: rgba(255, 255, 255, 0.15);
+  fill: var(--surface-alt);
+  stroke: rgba(255, 255, 255, 0.12);
 }
 
 body.dark-theme #map .tn {
-    fill: var(--surface);
-    stroke: rgba(255, 255, 255, 0.15);
+  fill: var(--surface);
+  stroke: rgba(255, 255, 255, 0.12);
 }
 
-/* Hover colour is same amber in both themes — text must contrast against it */
 body.dark-theme #map .state:hover,
 body.dark-theme #map .tn:hover {
-    fill: #ffc107;
+  fill: #ffc107;
+  filter: drop-shadow(0 2px 8px rgba(255, 193, 7, 0.35));
 }
 
-/* On amber (#ffc107) background, dark text is highest contrast */
+/* On amber (#ffc107) background, dark text has highest contrast */
 body.dark-theme #map .state-name {
-    fill: #1a1a1a;
-    stroke: rgba(255, 255, 255, 0.8);
-    stroke-width: 3px;
+  fill: #1a1a1a;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 3px;
 }

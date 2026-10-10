@@ -22,9 +22,9 @@ const India = () => {
     };
 
     return (
-        <>
+        <div className="india-page">
         <h1>Choose Your Desired Place to Visit</h1>
-    <svg id="map">
+    <svg id="map" viewBox="0 0 900 800" preserveAspectRatio="xMidYMid meet">
       <metadata id="metadata44">
         <rdf:RDF>
           <cc:Work rdf:about="">
@@ -380,8 +380,7 @@ const India = () => {
         <text className="state-name" x="390" y="340">West Bengal</text>
       </g>
     </svg>
-
-        </>
+        </div>
     )
 }
 
